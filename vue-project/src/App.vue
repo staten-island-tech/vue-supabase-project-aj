@@ -1,21 +1,23 @@
+<template>
+  <div>
+<div>
+  <form name="login-form" @submit.prevent="login(username, password)">
+      <div>
+          <label for="username">Username: </label>
+          <input id="username" type="text" v-model="username">
+      </div>
+      <div>
+          <label for="password">Password: </label>
+          <input id="password" type="text" v-model="password">
+      </div>
+          <button class="submit-button" type="submit"> Login </button>
+  </form>
+</div>
+  </div>
+</template>
+
 <script setup>
-import { ref, onMounted } from 'vue'
-import { supabase } from '@/lib/supabaseClient'
 
-const countries = ref([])
-
-async function getCountries() {
-  const { data } = await supabase.from('countries').select()
-  countries.value = data
-}
-
-onMounted(() => {
-  getCountries()
-})
 </script>
 
-<template>
-  <ul>
-    <li v-for="country in countries" :key="country.id">{{ country.name }}</li>
-  </ul>
-</template>
+<style lang="scss" scoped></style>
