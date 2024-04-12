@@ -1,9 +1,8 @@
 <template>
-  <div>
-<div>
-  <form name="login-form" @submit.prevent="login(username, password)">
+    <div>
+        <form name="login-form" @submit.prevent="login(username, password)">
       <div>
-          <label for="username">Username: </label>
+          <label for="username">Usernsacame: </label>
           <input id="username" type="text" v-model="username">
       </div>
       <div>
@@ -12,12 +11,13 @@
       </div>
           <button class="submit-button" type="submit"> Login </button>
   </form>
-</div>
-  </div>
+    </div>
 </template>
 
 <script setup>
 
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
