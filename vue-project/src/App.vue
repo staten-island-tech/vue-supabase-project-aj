@@ -1,32 +1,34 @@
+
 <template>
   <div>
     <div>
-      <form name="login-form" @submit.prevent="login(username, password)">
+      <form name="login-form" @submit.prevent="clear">
         <div>
-          <label ref="input-user" for="username">Username: </label>
+          <label class= "username" ref="input-user" for="username">Username: </label>
           <input id="username" type="text" v-model="username">
         </div>
         <div>
-          <label ref="input-pass" for="password">Password: </label>
-          <input id="password" type="text" v-model="password">
+          <label class= "password" ref="input-pass" for="password">Password: </label>
+          <input id="password" type="password" v-model="password">
         </div>
-        <button @click="clear()" type="submit"> Login </button>
+        <button  type="submit"> Login </button>
       </form>
     </div>
   </div>
 </template>
-
-<script>
+<script setup>
 import { ref } from 'vue';
 
 const password = ref ("");
 const username = ref ("");
 const input = ref("");
 
-console.log(input)
-async function login(username,){
+function clear(){
+console.log("hi");
+password.innerHTML= "";
 
 }
 </script>
+
 
 <style></style>
