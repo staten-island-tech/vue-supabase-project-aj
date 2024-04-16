@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header">
 <div>
   <form name="login-form" @submit.prevent="login(username, password)">
       <div>
@@ -20,4 +20,11 @@
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.header{
+  font-size: 2rem;
+  align-items: center;
+  text-align: center;
+  flex: auto;
+}
+</style>

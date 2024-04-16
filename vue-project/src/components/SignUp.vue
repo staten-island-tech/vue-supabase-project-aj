@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="header">
         <form name="login-form" @submit.prevent="login(username, password)">
       <div>
-          <label for="username">Usernsacame: </label>
+          <label for="username">Username: </label>
           <input id="username" type="text" v-model="username">
       </div>
       <div>
@@ -16,8 +16,15 @@
 
 <script setup>
 
+
 </script>
 
 <style scoped>
-
+.header{
+    font-size: 2rem;
+  align-items: center;
+  text-align: center;
+  flex: auto;
+  padding-top: 50px;
+}
 </style>
