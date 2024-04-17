@@ -1,23 +1,45 @@
 <template>
   <div>
-<div>
-  <form name="login-form" @submit.prevent="login(username, password)">
-      <div>
-          <label for="username">Username: </label>
-          <input id="username" type="text" v-model="username">
-      </div>
-      <div>
-          <label for="password">Password: </label>
-          <input id="password" type="text" v-model="password">
-      </div>
-          <button class="submit-button" type="submit"> Login </button>
-  </form>
-</div>
+    <form @submit.prevent="Submit">
+      <label>Username</label>
+      <input type="text" required v-model="user.name" id="name">
+      <label>Password</label>
+      <input type="password" required v-model="user.pass" id="pass">
+    </form>
+
+    <button type="submit" class=buttonSignup @click="Submit">Submit</button>
+    <br/>
+    You typed:<br/>
+    Username: {{user.name}}<br/>
+    Password: {{user.pass}}<br/>
+
   </div>
 </template>
 
-<script setup>
+<script>
+export default {
+  data() {
+    return {
+      users: [],
 
+      user: {
+        name: '',
+        pass: '',
+        number: ''
+      }
+    };
+  },
+  methods: {
+
+    Submit() {
+      // do some checking here
+      this.users.push(this.user)
+      this.user = {name:'', pass:'',};
+      console.log(this.users)
+
+    },
+
+
+  }
+}
 </script>
-
-<style lang="scss" scoped></style>
