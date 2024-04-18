@@ -1,18 +1,23 @@
 <template>
     <div class="header">
       <form @submit.prevent="Submit">
-        <label>Username</label>
+        <div>
+        <label>Username: </label>
         <input type="text" required v-model="user.Username" id="name">
-        <label>Password</label>
+        </div>
+        <div>
+        <label>Password: </label>
         <input type="password" required v-model="user.Password" id="pass">
+        </div>
       </form>
   
       <button type="submit" class=buttonSignup @click="Submit">Submit</button>
       <br/>
       You typed:<br/>
-      Username: {{user.Username}}<br/>
-      Password: {{user.Password}}<br/>
-  
+      Username- {{user.Username}}<br/>
+      Password- {{user.Password}}<br/>
+
+      <h3></h3>
     </div>
   </template>
   
@@ -47,7 +52,9 @@ export const supabase = createClient('https://dctworfsniezubogathx.supabase.co',
                 }
             });
     });
-  
+    document.querySelector("h3").textContent = ("You have signed up! Click login in to open app");
+
+
       },
     }
   }
