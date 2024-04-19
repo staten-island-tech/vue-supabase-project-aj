@@ -15,10 +15,11 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style scoped>
 header{
-  font-size: 2rem;
+  font-size: 3rem;
   align-items: center;
   text-align: center;
   flex: auto;
+  font-family:Arial, Helvetica, sans-serif;
 }
 .navigate{
 padding-left: 30px;

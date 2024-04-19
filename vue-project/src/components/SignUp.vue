@@ -1,21 +1,25 @@
 <template>
-    <div class="header">
-      <form @submit.prevent="Submit">
-        <label>Username</label>
+  <div class="header">
+    <form @submit.prevent="Submit">
+      <div>
+        <label>Username </label>
         <input type="text" required v-model="user.Username" id="name">
-        <label>Password</label>
+      </div>
+      <div> 
+        <label>Password </label>
         <input type="password" required v-model="user.Password" id="pass">
-      </form>
-  
-      <button type="submit" class=buttonSignup @click="Submit">Submit</button>
-      <br/>
-      You typed:<br/>
-      Username: {{user.Username}}<br/>
-      Password: {{user.Password}}<br/>
-      <h3></h3>
-  
-    </div>
-  </template>
+      </div>
+    </form>
+
+    <button type="submit" class=buttonSignup @click="Submit">Submit</button>
+    <br />
+    You typed<br />
+    Username: {{ user.Username }}<br class="yo" />
+    Password: {{ user.Password }}<br />
+    <h3></h3>
+
+  </div>
+</template>
   
   <script>
 import {supabase} from '@/lib/supabaseClient.js'
@@ -73,12 +77,13 @@ if (error) {
 
   
   <style scoped>
-  .header{
+  .header {
     flex: auto;
     align-items: center;
-    font-size: 2rem;
+    font-size: 1.4rem;
     text-align: center;
     padding-top: 10rem;
+    font-family: Arial, Helvetica, sans-serif;
   }
-  
-  </style>
+
+</style>
