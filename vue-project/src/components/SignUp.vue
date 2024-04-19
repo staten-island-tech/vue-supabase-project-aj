@@ -1,23 +1,18 @@
 <template>
     <div class="header">
       <form @submit.prevent="Submit">
-        <div>
-        <label>Username: </label>
+        <label>Username</label>
         <input type="text" required v-model="user.Username" id="name">
-        </div>
-        <div>
-        <label>Password: </label>
+        <label>Password</label>
         <input type="password" required v-model="user.Password" id="pass">
-        </div>
       </form>
   
       <button type="submit" class=buttonSignup @click="Submit">Submit</button>
       <br/>
       You typed:<br/>
-      Username- {{user.Username}}<br/>
-      Password- {{user.Password}}<br/>
-
-      <h3></h3>
+      Username: {{user.Username}}<br/>
+      Password: {{user.Password}}<br/>
+  
     </div>
   </template>
   
