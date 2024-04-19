@@ -12,13 +12,13 @@
       You typed:<br/>
       Username: {{user.Username}}<br/>
       Password: {{user.Password}}<br/>
+      <h3></h3>
   
     </div>
   </template>
   
   <script>
- import { createClient } from '@supabase/supabase-js'
-export const supabase = createClient('https://dctworfsniezubogathx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjdHdvcmZzbmllenVib2dhdGh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTIyMzk3ODEsImV4cCI6MjAyNzgxNTc4MX0.3TNwmbvfuxmSan_Ma7J7SyF7X100nqkxp5v_DNimGGo')
+import {supabase} from '@/lib/supabaseClient.js'
 
   export default {
     data() {
@@ -37,8 +37,8 @@ export const supabase = createClient('https://dctworfsniezubogathx.supabase.co',
         this.users.push(this.user)
         this.user = {Username:'', Password:'',};
         console.log(this.users)
-        this.users.forEach((user) => {
-          let { data, error } = supabase.auth.signUp({
+        this.users.forEach(async(user) => {
+          let { data, error } = await supabase.auth.signUp({
   email: user.Username,
   password: user.Password
     });
@@ -49,7 +49,9 @@ if (error) {
                     
      }
      },
-    )}}}
+    )
+    document.querySelector("h3").textContent = ("You have signed up! Click login in to open app");
+  }}}
 
   //       supabase.from('Users').insert([user])
   //           .then(({ data, error }) => {

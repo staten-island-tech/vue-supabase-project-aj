@@ -1,30 +1,57 @@
 <template>
   <div class="header">
-<div>
-  <form name="login-form" @submit.prevent="login(username, password)">
-      <div>
-          <label for="username">Username: </label>
-          <input id="username" type="text" v-model="username">
-      </div>
-      <div>
-          <label for="password">Password: </label>
-          <input id="password" type="text" v-model="password">
-      </div>
-          <button class="submit-button" type="submit"> Login </button>
-  </form>
-</div>
+    <form @submit.prevent="Submit">
+      <label>Username</label>
+      <input type="text" required v-model="user.Username" id="name">
+      <label>Password</label>
+      <input type="password" required v-model="user.Password" id="pass">
+    </form>
+
+    <button type="submit" class=buttonSignup @click="Submit">Submit</button>
+    <br/>
+    You typed:<br/>
+    Username: {{user.Username}}<br/>
+    Password: {{user.Password}}<br/>
+  
+
   </div>
 </template>
 
-<script setup>
+<script>
+import {supabase} from '@/lib/supabaseClient.js'
+
+export default {
+  data() {
+    return {
+      users: [],
+
+      user: {
+        Username: '',
+        Password: '',
+      }
+    };
+  },
+  methods: {
+
+   Submit() {
+      this.users.push(this.user)
+      this.user = {Username:'', Password:'',};
+      console.log(this.users)
+      
+  
+}}}
+
 
 </script>
 
+
 <style scoped>
 .header{
-  font-size: 2rem;
-  align-items: center;
-  text-align: center;
   flex: auto;
+  align-items: center;
+  font-size: 2rem;
+  text-align: center;
+  padding-top: 10rem;
 }
+
 </style>
