@@ -5,23 +5,35 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
       <nav>
-         <RouterLink class="navigate" to="/">Log In</RouterLink >
+         <RouterLink class="" to="/"></RouterLink >
 
          <RouterLink class="navigate"to="/signup">Sign Up</RouterLink>
+         <RouterLink class="navigate"to="/signin">Sign In</RouterLink>
       </nav>
   </header>
   <RouterView />
 </template>
 
 <style scoped>
-header{
+header {
   font-size: 2rem;
+  display: flex;
+  justify-content: space-between; 
   align-items: center;
-  text-align: center;
-  flex: auto;
+  padding: 10px 20px; 
+
 }
 .navigate{
-padding-left: 30px;
-padding-right: 30px;
+  padding: 10px 20px;
+  margin-right: 10px; 
+  background-color: lightblue;
+  color: white; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  text-decoration: none; 
+  transition: background-color 0.3s; 
+}
+.navigate:hover {
+  background-color: lightskyblue; 
 }
 </style>
