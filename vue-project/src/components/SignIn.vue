@@ -37,6 +37,7 @@
           }) 
           if (error) {
             console.error(error.message)
+            document.querySelector("h3").textContent = error.message
           } else {
             console.log(user)
             this.loggedIn = true; 
