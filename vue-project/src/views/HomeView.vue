@@ -1,37 +1,12 @@
 <template>
+  <div class="poop">
   <div class="header">
-    <form @submit.prevent="Submit">
-      <div> <label>Username </label>
-        <input type="text" required v-model="user.Username" id="name">
-      </div>
-      <div> <label>Password </label>
-        <input type="password" required v-model="user.Password" id="pass">
-      </div>
-    </form>
-
-    <button type="submit" class=buttonSignup @click="Submit">Submit</button>
-
+    <h1>You need to log in first!</h1>
   </div>
+</div>
 </template>
 
-<script>
-import {supabase} from '@/lib/supabaseClient.js'
-
-export default {
-  data() {
-    return {
-      users: [],
-
-      user: {
-        Username: '',
-        Password: '',
-      }
-    };
-}}
-
-
-</script>
-
+<script></script>
 
 <style scoped>
 .header{
@@ -39,8 +14,6 @@ export default {
   align-items: center;
   font-size: 1.4rem;
   text-align: center;
-  padding-top: 10rem;
-  font-family:Arial, Helvetica, sans-serif;
+  padding-top: 20rem;
 }
-
 </style>
