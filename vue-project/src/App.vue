@@ -26,7 +26,7 @@ header {
 .navigate{
   padding: 10px 20px;
   margin-right: 10px; 
-  background-color: lightblue;
+  background-color:rgb(57, 188, 231);
   color: white; 
   border-radius: 5px; 
   cursor: pointer; 
@@ -34,6 +34,6 @@ header {
   transition: background-color 0.3s; 
 }
 .navigate:hover {
-  background-color: lightskyblue; 
+  background-color: rgb(138, 198, 218); 
 }
 </style>

@@ -94,13 +94,13 @@ if (error) {
 }
 .button {
   padding: 10px 20px;
-  background-color: lightblue;
+  background-color: rgb(163, 207, 221);
   color: #fff;
   border: none;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
 }
 .button:hover {
-  background-color: lightskyblue;
+  background-color: rgb(163, 207, 221);
 }
   </style>
