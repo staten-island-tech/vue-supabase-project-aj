@@ -51,7 +51,7 @@ import {supabase} from '@/lib/supabaseClient.js'
           let { data, error } = await supabase.auth.signUp({
   email: user.Email,
   password: user.Password,
-  name: user.Username
+  display_name: user.Username
  });
 if (error) {
   console.error(error.message);
