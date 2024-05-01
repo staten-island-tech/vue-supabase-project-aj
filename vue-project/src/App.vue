@@ -1,25 +1,4 @@
 <script setup>
-<<<<<<< HEAD
-import { ref, onMounted } from 'vue'
-import { supabase } from '@/lib/supabaseClient'
-
-const countries = ref([])
-
-async function getCountries() {
-  const { data } = await supabase.from('countries').select()
-  countries.value = data
-}
-
-onMounted(() => {
-  getCountries()
-})
-</script>
-
-<template>
-  <ul>
-    <li v-for="country in countries" :key="country.id">{{ country.name }}</li>
-  </ul>
-=======
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
@@ -33,7 +12,6 @@ import { RouterLink, RouterView } from 'vue-router'
       </nav>
   </header>
   <RouterView />
->>>>>>> 7d2f815d3ea21372074993d3b256fb824d3dd9a8
 </template>
 
 <style scoped>
@@ -48,7 +26,7 @@ header {
 .navigate{
   padding: 10px 20px;
   margin-right: 10px; 
-  background-color: lightblue;
+  background-color:rgb(57, 188, 231);
   color: white; 
   border-radius: 5px; 
   cursor: pointer; 
@@ -56,6 +34,6 @@ header {
   transition: background-color 0.3s; 
 }
 .navigate:hover {
-  background-color: lightskyblue; 
+  background-color: rgb(138, 198, 218); 
 }
 </style>

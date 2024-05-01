@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<script setup>
-=======
 <!-- <script setup>
->>>>>>> 7d2f815d3ea21372074993d3b256fb824d3dd9a8
 defineProps({
   msg: {
     type: String,
@@ -45,8 +41,4 @@ h3 {
     text-align: left;
   }
 }
-<<<<<<< HEAD
-</style>
-=======
 </style> -->
->>>>>>> 7d2f815d3ea21372074993d3b256fb824d3dd9a8

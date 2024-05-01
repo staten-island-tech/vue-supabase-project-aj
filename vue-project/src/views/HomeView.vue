@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
-<template>
-  <main>
-    <TheWelcome />
-  </main>
-</template>
-=======
 <template>
   <div class="poop">
   <div class="header">
@@ -28,4 +17,3 @@ import TheWelcome from '../components/TheWelcome.vue'
   padding-top: 20rem;
 }
 </style>
->>>>>>> 7d2f815d3ea21372074993d3b256fb824d3dd9a8
