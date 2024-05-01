@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import './base.css';
 
 #app {
@@ -33,3 +34,8 @@ a,
     padding: 0 2rem;
   }
 }
+=======
+body{
+    background-color: lightpink;
+}
+>>>>>>> 7d2f815d3ea21372074993d3b256fb824d3dd9a8

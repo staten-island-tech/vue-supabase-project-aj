@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <template>
+=======
+<!-- <template>
+>>>>>>> 7d2f815d3ea21372074993d3b256fb824d3dd9a8
   <div class="item">
     <i>
       <slot name="icon"></slot>
@@ -83,4 +87,8 @@ h3 {
     display: none;
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style> -->
+>>>>>>> 7d2f815d3ea21372074993d3b256fb824d3dd9a8
