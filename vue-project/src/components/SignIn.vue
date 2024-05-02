@@ -10,12 +10,11 @@
           <input type="password" required v-model="user.Password" id="pass" class="form2">
         </div>
         <button type="submit" class="button">Submit</button>
-        <div  v-if="this.LoggedIn = true">
-          <UserInfo />
-        </div>
-
       </form>
   <h3></h3>
+  <div v-if="loggedIn">
+      <UserInfo />
+    </div>
     </div>
   </template>
   
@@ -47,8 +46,6 @@
             console.log(user)
             this.loggedIn = true; 
             document.querySelector("h3").textContent = ("Yay you logged in successfully!");
-            
-
           }
         } catch (error) {
           console.error(error.message)

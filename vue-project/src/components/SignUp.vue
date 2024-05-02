@@ -6,10 +6,6 @@
         <input type="text" required v-model="user.Email" id="namee" class="form2">
       </div>
       <div class="form1">
-        <label for="name">Username</label>
-        <input type="text" required v-model="user.Username" id="name" class="form2">
-      </div>
-      <div class="form1">
         <label for="pass">Password</label>
         <input type="password" required v-model="user.Password" id="pass" class="form2">
       </div>
@@ -36,7 +32,6 @@ import {supabase} from '@/lib/supabaseClient.js'
         users: [],
         user: {
           Email:'',
-          Username: '',
           Password: '',
         }
       };
@@ -45,13 +40,12 @@ import {supabase} from '@/lib/supabaseClient.js'
   
      Submit() {
         this.users.push(this.user)
-        this.user = {Email:'',Username:'', Password:'',};
+        this.user = {Email:'', Password:'',};
         console.log(this.users)
         this.users.forEach(async(user) => {
           let { data, error } = await supabase.auth.signUp({
   email: user.Email,
   password: user.Password,
-  display_name: user.Username
  });
 if (error) {
   console.error(error.message);
