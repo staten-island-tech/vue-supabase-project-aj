@@ -45,6 +45,7 @@
           } else {
             console.log(user)
             this.loggedIn = true; 
+            router.push({path: '/info'})
             document.querySelector("h3").textContent = ("Yay you logged in successfully!");
           }
         } catch (error) {
