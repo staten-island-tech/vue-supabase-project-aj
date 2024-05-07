@@ -1,24 +1,44 @@
-<template>
-  <div>
-<div>
-  <form name="login-form" @submit.prevent="login(username, password)">
-      <div>
-          <label for="username">Username: </label>
-          <input id="username" type="text" v-model="username">
-      </div>
-      <div>
-          <label for="password">Password: </label>
-          <input id="password" type="text" v-model="password">
-      </div>
-          <button class="submit-button" type="submit"> Login </button>
-          <button class="sign-in" type="submit"> Sign In</button>
-  </form>
-</div>
-  </div>
-</template>
 
 <script setup>
+
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
-<style lang="scss" scoped></style>
+<template>
+  <header>
+      <nav>
+         <RouterLink class="" to="/"></RouterLink >
+
+         <RouterLink class="navigate"to="/signup">Sign Up</RouterLink>
+         <RouterLink class="navigate"to="/signin">Sign In</RouterLink>
+   
+      </nav>
+  </header>
+  <RouterView />
+
+</template>
+
+<style scoped>
+header {
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 10px 20px; 
+
+}
+.navigate{
+  padding: 10px 20px;
+  margin-right: 10px; 
+  background-color:rgb(57, 188, 231);
+  color: white; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  text-decoration: none; 
+  transition: background-color 0.3s; 
+}
+.navigate:hover {
+  background-color: rgb(138, 198, 218); 
+}
+</style>
+

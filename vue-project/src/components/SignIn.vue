@@ -12,11 +12,15 @@
         <button type="submit" class="button">Submit</button>
       </form>
   <h3></h3>
+  <div v-if="loggedIn">
+      <UserInfo />
+    </div>
     </div>
   </template>
   
   <script>
   import { supabase } from '@/lib/supabaseClient.js'
+  import UserInfo from '@/components/UserInfo.vue'
   
   export default {
     data() {
@@ -37,6 +41,7 @@
           }) 
           if (error) {
             console.error(error.message)
+            document.querySelector("h3").textContent = error.message
           } else {
             console.log(user)
             this.loggedIn = true; 

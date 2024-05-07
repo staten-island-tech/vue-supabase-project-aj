@@ -1,6 +1,3 @@
-<script setup>
-
-</script>
 
 <template>
   <div class="poop">
@@ -9,3 +6,16 @@
   </div>
 </div>
 </template>
+
+<script></script>
+
+<style scoped>
+.header{
+  flex: auto;
+  align-items: center;
+  font-size: 2rem;
+  text-align: center;
+  padding-top: 20rem;
+}
+</style>
+
