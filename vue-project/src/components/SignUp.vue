@@ -88,7 +88,7 @@ if (error) {
 }
 .button {
   padding: 10px 20px;
-  background-color: rgb(163, 207, 221);
+  background-color:rgb(57, 188, 231);
   color: #fff;
   border: none;
   border-radius: 4px;
