@@ -44,7 +44,6 @@
             document.querySelector("h3").textContent = ("Wrong password or email")
           } else {
             this.loggedIn = true; 
-            router.push({path: '/info'})
             document.querySelector("h3").textContent = ("Yay you logged in successfully!");
             this.$router.push('/home')
           }
