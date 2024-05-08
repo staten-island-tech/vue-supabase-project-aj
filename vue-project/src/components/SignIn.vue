@@ -37,10 +37,11 @@
           }) 
           if (error) {
             console.error(error.message)
+            document.querySelector("h3").textContent = ("Wrong Password");
           } else {
-            console.log(user)
             this.loggedIn = true; 
             document.querySelector("h3").textContent = ("Yay you logged in successfully!");
+            this.$router.push('/home')
           }
         } catch (error) {
           console.error(error.message)
@@ -81,14 +82,14 @@
 }
 .button {
   padding: 10px 20px;
-  background-color: lightblue;
+  background-color:rgb(57, 188, 231);
   color: #fff;
   border: none;
   border-radius: 3px;
   cursor: pointer;
 }
 .button:hover {
-  background-color: lightskyblue;
+  background-color: rgb(163, 207, 221);
 }
 
 </style>
