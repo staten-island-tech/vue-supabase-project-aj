@@ -10,7 +10,9 @@
   </header>
   <RouterView />
     <div class="header">
+  
       <form @submit.prevent="Submit" class="form">
+        <h1> Sign In </h1>
         <div class="form1">
           <label for="namee">Email</label>
           <input type="text" required v-model="user.Email" id="namee" class="form2">
@@ -41,7 +43,7 @@
     methods: {
       async login() {
         try {
-          const { user, session, error } = await supabase.auth.signInWithPassword({
+          const { error } = await supabase.auth.signInWithPassword({
             email: this.user.Email,
             password: this.user.Password
           }) 
@@ -50,7 +52,6 @@
             document.querySelector("h3").textContent = ("Wrong password or email")
           } else {
             this.loggedIn = true; 
-            document.querySelector("h3").textContent = ("Yay you logged in successfully!");
             this.$router.push('/home')
           }
         } catch (error) {

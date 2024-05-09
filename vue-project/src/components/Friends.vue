@@ -2,18 +2,16 @@
     <div>
         <header>
       <nav>
-        <RouterLink class="" to="/"></RouterLink >
+         <RouterLink class="" to="/"></RouterLink >
 
-         <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
-         <RouterLink class="navigate"to="/friends">Friends</RouterLink>
-         <RouterLink class="navigate"to="/profile">Friends</RouterLink>
+         <RouterLink class="navigate"to="/FYP">FYP</RouterLink>
+         <RouterLink class="navigate"to="/Friends">Friends</RouterLink>
+         <RouterLink class="navigate"to="/Profile">Friends</RouterLink>
    
       </nav>
   </header>
     </div>
-    <div>
-        <h1> Welcome </h1>
-    </div>
+    <h1>Friends</h1>
 </template>
 
 <script setup>
@@ -21,9 +19,6 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <style scoped>
-.body{
-    align-items: center;
-}
 .navigate{
     padding: 10px 20px;
     margin-right: 10px; 
