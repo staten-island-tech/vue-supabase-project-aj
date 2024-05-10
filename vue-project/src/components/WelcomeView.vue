@@ -31,6 +31,7 @@ export default {
       this.users.forEach(async(user) => {
           let { data, error } = await supabase.from('profiles')
           .update({Username: user})
+          .select().eq('id',1)    
           if (error) {
   console.error(error.message);
    } else {
