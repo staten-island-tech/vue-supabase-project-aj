@@ -1,18 +1,17 @@
 <template>
     <div>
-        <header>
+        <header class="header">
       <nav>
-        <RouterLink class="" to="/"></RouterLink >
 
          <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
          <RouterLink class="navigate"to="/friends">Friends</RouterLink>
-         <RouterLink class="navigate"to="/profile">Friends</RouterLink>
+         <RouterLink class="navigate"to="/profile">Profile</RouterLink>
    
       </nav>
   </header>
     </div>
     <div>
-        <h1> Welcome </h1>
+        <h1 > Welcome </h1>
     </div>
 </template>
 
@@ -33,6 +32,8 @@ import { RouterLink } from 'vue-router'
     cursor: pointer; 
     text-decoration: none; 
     transition: background-color 0.3s; 
+    align-items: center;
+    justify-content: center;
   }
   .navigate:hover {
     background-color: rgb(138, 198, 218); 
@@ -42,7 +43,7 @@ import { RouterLink } from 'vue-router'
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-  }
+
+}
 </style>
   

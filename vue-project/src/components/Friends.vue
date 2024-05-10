@@ -2,11 +2,9 @@
     <div>
         <header>
       <nav>
-         <RouterLink class="" to="/"></RouterLink >
-
          <RouterLink class="navigate"to="/FYP">FYP</RouterLink>
          <RouterLink class="navigate"to="/Friends">Friends</RouterLink>
-         <RouterLink class="navigate"to="/Profile">Friends</RouterLink>
+         <RouterLink class="navigate"to="/Profile">Profile</RouterLink>
    
       </nav>
   </header>
@@ -28,6 +26,8 @@ import { RouterLink } from 'vue-router'
     cursor: pointer; 
     text-decoration: none; 
     transition: background-color 0.3s; 
+    align-items: center;
+    justify-content: center;
   }
   .navigate:hover {
     background-color: rgb(138, 198, 218); 
