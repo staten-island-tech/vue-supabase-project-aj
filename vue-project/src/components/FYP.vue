@@ -1,17 +1,18 @@
 <template>
-    <div>
-        <header>
-      <nav>
+  <br>
+  <div>
+      <header class="header">
+    <nav>
 
-         <RouterLink class="navigate"to="/FYP">FYP</RouterLink>
-         <RouterLink class="navigate"to="/Friends">Friends</RouterLink>
-         <RouterLink class="navigate"to="/Profile">Profile</RouterLink>
-   
-      </nav>
-  </header>
-    </div>
+       <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
+       <RouterLink class="navigate"to="/friends">Friends</RouterLink>
+       <RouterLink class="navigate"to="/profile">Profile</RouterLink>
+ 
+    </nav>
+</header>
+  </div>
     <div>
-        <h1>FYP</h1>
+        <h1 class="page">FYP</h1>
     </div>
 </template>
 
@@ -19,7 +20,10 @@
 import { RouterLink } from 'vue-router'
 </script>
 
-<style scoped>
+<style >
+.body{
+    align-items: center;
+}
 .navigate{
     padding: 10px 20px;
     margin-right: 10px; 
@@ -31,6 +35,7 @@ import { RouterLink } from 'vue-router'
     transition: background-color 0.3s; 
     align-items: center;
     justify-content: center;
+    margin: 50px;
   }
   .navigate:hover {
     background-color: rgb(138, 198, 218); 
@@ -40,7 +45,12 @@ import { RouterLink } from 'vue-router'
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-  }
+
+}
+.page{
+  align-items: center;
+  justify-content: center;
+}
 </style>
+  
   

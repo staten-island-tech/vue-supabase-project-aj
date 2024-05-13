@@ -1,4 +1,5 @@
 <template>
+<br>
     <div>
         <header class="header">
       <nav>
@@ -8,10 +9,13 @@
          <RouterLink class="navigate"to="/profile">Profile</RouterLink>
    
       </nav>
+      <div>
+
+      </div>
   </header>
     </div>
     <div>
-        <h1 > Welcome </h1>
+        <h1 class="page"> Welcome! </h1>
     </div>
 </template>
 
@@ -19,7 +23,7 @@
 import { RouterLink } from 'vue-router'
 </script>
 
-<style scoped>
+<style >
 .body{
     align-items: center;
 }
@@ -34,6 +38,7 @@ import { RouterLink } from 'vue-router'
     transition: background-color 0.3s; 
     align-items: center;
     justify-content: center;
+    margin: 50px;
   }
   .navigate:hover {
     background-color: rgb(138, 198, 218); 
@@ -45,5 +50,11 @@ import { RouterLink } from 'vue-router'
     justify-content: center;
 
 }
+.page{
+  align-items: center;
+  justify-content: center;
+}
+
+
 </style>
   
