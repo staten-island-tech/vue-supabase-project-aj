@@ -31,9 +31,9 @@ export default {
       this.users.forEach(async(user) => {
           let { data, error } = await supabase.from('profiles')
           .update({Username: user})
-          .select().eq('id',1)    
+          .select().eq('id',id)    
           if (error) {
-  console.error(error.message);
+  console.log(error.message);
    } else {
       console.log(data);        
      }});
