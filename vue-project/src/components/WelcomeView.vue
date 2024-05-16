@@ -12,6 +12,7 @@
 
 <script>
 import {supabase} from '@/lib/supabaseClient.js'
+
 export default {
   data() {
     return {

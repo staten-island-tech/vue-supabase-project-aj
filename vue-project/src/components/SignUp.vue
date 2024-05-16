@@ -51,7 +51,7 @@ import {supabase} from '@/lib/supabaseClient.js'
   password: user.Password,
  });
 if (error) {
-  console.error(error.message);
+  console.log(error.message);
    } else {
       console.log(data);        
      }

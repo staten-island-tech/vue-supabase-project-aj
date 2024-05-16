@@ -28,6 +28,28 @@
   <script>
   import { supabase } from '@/lib/supabaseClient.js'
   import { RouterLink, RouterView } from 'vue-router'
+  import { AuthStore } from '@/stores/counter.js'
+/*   export const authStore = defineStore('auth',{
+  state:() => {
+    return {
+      currentUser: null,
+      location: null
+    };
+  },
+  actions: {
+    loadUser(){
+      this.currentUser = supabase.auth.user();
+    },
+    clearUser(){
+      this.currentUser = null;
+    },
+  },
+  getters:{
+    isAuthenticated(){
+      return !!this.currentUser;
+    },
+  },
+}); */
   export default {
     data() {
       return {
@@ -52,9 +74,11 @@
             this.loggedIn = true; 
             document.querySelector("h3").textContent = ("Yay you logged in successfully!");
             this.$router.push('/home')
+            AuthStore.user.push(user)
+          console.log(AuthStore.user)
           }
         } catch (error) {
-          console.error(error.message)
+          console.log(error.message)
         }
       },
       Submit() {
