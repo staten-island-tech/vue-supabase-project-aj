@@ -10,6 +10,7 @@
   </header>
   <div class="header">
     <form @submit.prevent="Submit" class="form">
+      <h1> Sign Up </h1>
       <div class="form1">
         <label for="namee">Email</label>
         <input type="text" required v-model="user.Email" id="namee" class="form2">
@@ -26,7 +27,7 @@
 </template>
   
   <script>
-  import { RouterLink, RouterView } from 'vue-router'
+  import { RouterLink } from 'vue-router'
 import {supabase} from '@/lib/supabaseClient.js'
 
   export default {
