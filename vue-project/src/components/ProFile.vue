@@ -23,6 +23,7 @@
       <button type="submit" class="button">Submit</button>
     </form>
     </div>
+    <input type="file">
   </template>
   <script>
   import { RouterLink } from 'vue-router'
@@ -58,6 +59,13 @@
     }
   }
 }
+const { data, error } = await supabase
+  .storage
+  .updateBucket('avatars', {
+    public: false,
+    allowedMimeTypes: ['image/png'],
+    fileSizeLimit: 1024,
+  })
   </script>
   <style >
   .body{
