@@ -1,4 +1,13 @@
 <template>
+ <header>
+      <nav>
+         <RouterLink class="" to="/"></RouterLink >
+
+         <RouterLink class="navigate"to="/signup">Sign Up</RouterLink>
+         <RouterLink class="navigate"to="/signin">Sign In</RouterLink>
+   
+      </nav>
+  </header>
   <div class="header">
     <form @submit.prevent="Submit" class="form">
       <div class="form1">
@@ -11,19 +20,13 @@
       </div>
 
       <button type="submit" class="button">Submit</button>
-      <!-- <div class="type">
-      <br/>
-      You typed:<br/>
-      Username: {{user.Username}}<br/>
-      Password: {{user.Password}}<br/>
-    </div> -->
     </form>
 <h3></h3>
   </div>
 </template>
   
   <script>
-  
+  import { RouterLink, RouterView } from 'vue-router'
 import {supabase} from '@/lib/supabaseClient.js'
 
   export default {
@@ -48,7 +51,7 @@ import {supabase} from '@/lib/supabaseClient.js'
   password: user.Password,
  });
 if (error) {
-  console.error(error.message);
+  console.log(error.message);
    } else {
       console.log(data);        
      }
@@ -61,6 +64,26 @@ if (error) {
 
   
   <style scoped>
+  header {
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 10px 20px; 
+}
+.navigate{
+  padding: 10px 20px;
+  margin-right: 10px; 
+  background-color:rgb(57, 188, 231);
+  color: white; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  text-decoration: none; 
+  transition: background-color 0.3s; 
+}
+.navigate:hover {
+  background-color: rgb(138, 198, 218); 
+}
 .header {
   display: flex;
   flex-direction: column;

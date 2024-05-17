@@ -29,6 +29,31 @@ const router = createRouter({
       path: "/home",
       component: () => import('../components/WelcomeView.vue'),
     },
+    {
+      path: '/fyp',
+      name: 'fyp',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../components/ForYou.vue'),
+    },
+    {
+      path: '/friends',
+      name: 'friends',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../components/FriEnds.vue'),
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../components/ProFile.vue'),
+    },
+    
   ]
 })
 
