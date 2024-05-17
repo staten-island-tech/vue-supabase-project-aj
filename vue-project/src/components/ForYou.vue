@@ -1,27 +1,23 @@
 <template>
-  <br>
-      <div>
-          <header class="header">
-        <nav>
+    <br>
+    <div>
+        <header class="header">
+      <nav>
   
-           <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
-           <RouterLink class="navigate"to="/friends">Friends</RouterLink>
-           <RouterLink class="navigate"to="/profile">Profile</RouterLink>
-     
-        </nav>
-        <div>
-  
-        </div>
-    </header>
-      </div>
+         <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
+         <RouterLink class="navigate"to="/friends">Friends</RouterLink>
+         <RouterLink class="navigate"to="/profile">Profile</RouterLink>
+   
+      </nav>
+  </header>
+    </div>
       <div>
-          <h1 class="page"> Welcome! </h1>
+          <h1 class="page">FYP</h1>
       </div>
   </template>
   
   <script setup>
   import { RouterLink } from 'vue-router'
-
   </script>
   
   <style >
@@ -55,7 +51,4 @@
     align-items: center;
     justify-content: center;
   }
-  
-  
   </style>
-    
