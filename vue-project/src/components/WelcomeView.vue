@@ -38,7 +38,7 @@ export default {
           this.$router.push('/homee')
         }
       } catch (error) {
-        console.error(error.message)
+        console.error('Unexpected error:', error)
       }
     }
   }
@@ -47,30 +47,16 @@ export default {
          
 
 
-<style >
-.body{
-    align-items: center;
-}
-.navigate{
-    padding: 10px 20px;
-    margin-right: 10px; 
-    background-color:rgb(57, 188, 231);
-    color: white; 
-    border-radius: 5px; 
-    cursor: pointer; 
-    text-decoration: none; 
-    transition: background-color 0.3s; 
-    align-items: center;
-    justify-content: center;
-    margin: 50px;
-  }
-  .navigate:hover {
-    background-color: rgb(138, 198, 218); 
-  }
-  .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+<style scoped>
+
 </style>
+<!-- 
+this.users.forEach((user) => {
+    supabase.from('profiles').update({Username: user})
+        .then(({ data, error }) => {
+            if (error) {
+                console.error(error.message);
+            } else {
+                console.log(data);
+            }
+        }); -->
