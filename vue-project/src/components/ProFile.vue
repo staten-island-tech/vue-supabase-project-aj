@@ -13,7 +13,15 @@
     </div>
     <div>
     <h1 class="page">Profile</h1>
-      </div>
+    </div class="body">
+      <img  src="https://th.bing.com/th/id/OIP.0iC5r3QBf_t-oqWBNS1w_wHaL3?w=115&h=180&c=7&r=0&o=5&pid=1.7" alt="pfp" class="wdn-stretch rounded-corners">
+
+
+
+
+
+
+    <br>
       <div class="header">
     <form @submit.prevent="Submit" class="form">
       <div class="form1">
@@ -24,6 +32,11 @@
     </form>
     </div>
     <input type="file">
+
+  <div>
+<h3 class="doe">
+</h3>
+  </div>
   </template>
   <script>
   import { RouterLink } from 'vue-router'
@@ -51,6 +64,7 @@
           console.log(error.message)
         } else {
           console.log('Username updated successfully')
+          document.querySelector("h3").textContent = (this.user.Username);
           this.user.Username = ''
         }
       } catch (error) {
@@ -98,4 +112,9 @@ const { data, error } = await supabase
     align-items: center;
     justify-content: center;
   }
+  .doe{
+    align-items: center;
+    justify-content: center; 
+  }
+
   </style>
