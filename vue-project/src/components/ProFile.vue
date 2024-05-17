@@ -23,7 +23,8 @@
       <button type="submit" class="button">Submit</button>
     </form>
     </div>
-    <input type="file">
+    <input type="file" @change="onFileSelected">
+    <button>upload</button>
   </template>
   <script>
   import { RouterLink } from 'vue-router'
@@ -56,16 +57,21 @@
       } catch (error) {
         console.error('Unexpected error:', error)
       }
-    }
+    },
+    onFileSelected(event) {
+    this.selectedFile = event.target.files[0]
+  }
   }
 }
-const { data, error } = await supabase
+/* const { data, error } = await supabase
   .storage
   .updateBucket('avatars', {
     public: false,
     allowedMimeTypes: ['image/png'],
     fileSizeLimit: 1024,
-  })
+  }) */
+
+
   </script>
   <style >
   .body{
