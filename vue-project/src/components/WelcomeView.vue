@@ -11,38 +11,41 @@
 </template>
 
 <script>
-import {supabase} from '@/lib/supabaseClient.js'
-
+import { supabase } from '@/lib/supabaseClient.js'
+import { RouterLink, RouterView } from 'vue-router'
 export default {
   data() {
     return {
-      users: [],
-
       user: {
-        Username: '',
+        Username: ''
       }
     };
   },
   methods: {
+    async Submit() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
+   
+        let { error } = await supabase
+          .from('profiles')
+          .update({ Username: this.user.Username })
+          .eq('id', user.id)
 
-    Submit() {
-      this.users.push(this.user)
-      this.user = {Username:'',};
-      console.log(this.users)
-      this.users.forEach(async(user) => {
-          let { data, error } = await supabase.from('profiles')
-          .update({Username: user})
-          .select().eq('id',id)    
-          if (error) {
-  console.log(error.message);
-   } else {
-      console.log(data);        
-     }});
-    }}}
+        if (error) {
+          console.log(error.message)
+        } else {
+          console.log('Username updated successfully')
+          this.$router.push('/homee')
+        }
+      } catch (error) {
+        console.error('Unexpected error:', error)
+      }
+    }
+  }
+}
+</script>
          
 
-
-</script>
 
 <style scoped>
 

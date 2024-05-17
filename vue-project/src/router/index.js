@@ -29,6 +29,10 @@ const router = createRouter({
       path: "/home",
       component: () => import('../components/WelcomeView.vue'),
     },
+    {
+      path: "/homee",
+      component: () => import('../components/AfterUser.vue'),
+    },
   ]
 })
 
