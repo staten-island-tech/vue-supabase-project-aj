@@ -24,7 +24,7 @@
     </form>
     </div>
     <input type="file" @change="onFileSelected">
-    <button>upload</button>
+    <button @click ="onUpload">Upload</button>
   </template>
   <script>
   import { RouterLink } from 'vue-router'
@@ -34,7 +34,8 @@
   data() {
     return {
       user: {
-        Username: ''
+        Username: '',
+        selectedFile: null
       }
     };
   },
@@ -60,6 +61,9 @@
     },
     onFileSelected(event) {
     this.selectedFile = event.target.files[0]
+  },
+  onUpload() {
+    
   }
   }
 }
