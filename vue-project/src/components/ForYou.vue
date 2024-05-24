@@ -17,10 +17,13 @@
       <form @submit.prevent="Submit" class="form">
         <div class="form1">
           <label for="namee">Comment</label>
-          <input type="text" required v-model="user.comment" id="comment" class="form2">
+          <input type="text" required v-model="user.Comment" id="comment" class="form2">
         </div>
         <button type="submit" class="button">Submit</button>
         </form>
+        <div v-if="Submit">
+          <h2>Comment: {{  }}</h2>
+        </div>
           </div>
       </div>
   </template>
@@ -35,8 +38,7 @@
         users: [],
   
         user: {
-          Username: '',
-          Password: '',
+          Comment: '',
         }
       };
     },
@@ -44,10 +46,10 @@
   
       Submit() {
         this.users.push(this.user)
-        this.user = {Username:'', Password:'',};
+        this.user = {Comment:'',};
         console.log(this.users)
-        this.users.forEach((user) => {
-        supabase.from('Users').insert([user])
+        this.users.forEach((Comment) => {
+        supabase.from('posts').insert([Comment])
             .then(({ data, error }) => {
                 if (error) {
                     console.error(error.message);
@@ -56,7 +58,6 @@
                 }
             });
     });
-    
   },
     }
   }
