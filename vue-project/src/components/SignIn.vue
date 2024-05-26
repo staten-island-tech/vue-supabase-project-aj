@@ -37,7 +37,6 @@
           Email: '',
           Password: ''
         },
-        loggedIn: false
       }
     },
     methods: {
@@ -51,9 +50,6 @@
             console.error(error.message)
             document.querySelector("h3").textContent = ("Wrong password or email")
           } else {
-            this.loggedIn = true; 
-       /*      const authStore = useAuthStore()
-          authStore.setUser(user) */
             document.querySelector("h3").textContent = ("Yay you logged in successfully!");
             this.$router.push('/home')
           }
