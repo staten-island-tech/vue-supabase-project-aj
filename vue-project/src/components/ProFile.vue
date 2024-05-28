@@ -10,20 +10,29 @@
    
       </nav>
   </header>
-    </div>
-    <div>
+</div>
+
+  <div>
     <h1 class="page">Profile</h1>
-    </div class="body">
-    
-
-
-
-
-
-
     <br>
+
+    <div class="box">
+
+<v-card  id="rounded-card">
+  <v-img  src="image.jpg" height="300"></v-img>
+     <v-fade-transition>
+          <v-overlay
+            v-if="hover"
+            absolute
+             style="z-index: 0"
+          >
+            <h1>Circle Card</h1>
+          </v-overlay>
+        </v-fade-transition>       
+  </v-card>
+
       <div class="header">
-    <form @submit.prevent="Submit" class="form">
+        <form @submit.prevent="Submit" class="form">
       <div class="form1">
         <label for="namee">Username</label>
         <input type="text" required v-model="user.Username" id="namee" class="form2">
@@ -31,13 +40,13 @@
       <button type="submit" class="button">Submit</button>
     </form>
     </div>
-    <input type="file">
-
-    <v-card src="https://th.bing.com/th/id/OIP.0iC5r3QBf_t-oqWBNS1w_wHaL3?w=115&h=180&c=7&r=0&o=5&pid=1.7" class="rounded-card"></v-card>
-  <div>
-<h3 class="doe">
-</h3>
   </div>
+
+      <div>
+        <h3 class="doe"></h3>
+      </div>
+    </div>
+
   </template>
   <script>
   import { RouterLink } from 'vue-router'
@@ -102,11 +111,24 @@ const { data, error } = await supabase
     .navigate:hover {
       background-color: rgb(138, 198, 218); 
     }
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    .box {
+  justify-content:space-around;
+  position: center;
+  align-items:baseline;
+  text-align: center;
+  offset-distance: 50%;
+  display: flex;
+  width: 600px;
+  height: 600px;
+  border-radius: 5px;
+  border:1px solid black;
+  margin: 0 auto;
+}
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   
   }
   .page{
@@ -120,6 +142,17 @@ const { data, error } = await supabase
 
   .rounded-card{
     border-radius:50px;
+}
+.form1{
+  align-items: center;
+  justify-content: center;
+}
+#rounded-card {
+  border-radius: 50%; 
+  min-height: 100px;
+  min-width: 100px;
+  border:1px solid black;
+  align-items:baseline;
 }
 
   </style>
