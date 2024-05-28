@@ -14,7 +14,7 @@
     <div>
     <h1 class="page">Profile</h1>
     </div class="body">
-      <img  src="https://th.bing.com/th/id/OIP.0iC5r3QBf_t-oqWBNS1w_wHaL3?w=115&h=180&c=7&r=0&o=5&pid=1.7" alt="pfp" class="wdn-stretch rounded-corners">
+    
 
 
 
@@ -33,6 +33,7 @@
     </div>
     <input type="file">
 
+    <v-card src="https://th.bing.com/th/id/OIP.0iC5r3QBf_t-oqWBNS1w_wHaL3?w=115&h=180&c=7&r=0&o=5&pid=1.7" class="rounded-card"></v-card>
   <div>
 <h3 class="doe">
 </h3>
@@ -65,11 +66,11 @@
         } else {
           console.log('Username updated successfully')
           document.querySelector("h3").textContent = (this.user.Username);
-          this.user.Username = ''
         }
       } catch (error) {
         console.error('Unexpected error:', error)
       }
+      this.user.Username;
     }
   }
 }
@@ -116,5 +117,9 @@ const { data, error } = await supabase
     align-items: center;
     justify-content: center; 
   }
+
+  .rounded-card{
+    border-radius:50px;
+}
 
   </style>
