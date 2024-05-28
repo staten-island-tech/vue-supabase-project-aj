@@ -22,7 +22,7 @@
         <button type="submit" class="button">Submit</button>
         </form>
         <div v-if="Submit">
-          <h2>Comment: {{  }}</h2>
+          <h2>Comment: {{ }}</h2>
         </div>
           </div>
       </div>
@@ -32,35 +32,54 @@
   import { RouterLink } from 'vue-router'
   import { supabase } from '@/lib/supabaseClient.js'
 
-  export default {
-    data() {
-      return {
-        users: [],
-  
-        user: {
-          Comment: '',
-        }
-      };
-    },
-    methods: {
-  
-      Submit() {
-        this.users.push(this.user)
-        this.user = {Comment:'',};
-        console.log(this.users)
-        this.users.forEach((Comment) => {
-        supabase.from('posts').insert([Comment])
-            .then(({ data, error }) => {
-                if (error) {
-                    console.error(error.message);
-                } else {
-                    console.log(data);
-                }
-            });
-    });
-  },
+  Comment(() => {
+    const type = async () => {
+      const {data, error} = await supabase
+      .from('posts')
+      .select()
+
+      if (error){
+        console.log(error.message)
+      }
+      else {
+        console.log(data)
+      }
     }
-  }
+    type()
+  })
+
+
+  // export default {
+  //   data() {
+  //     return {
+  //       users: [],
+  
+  //       user: {
+  //         Comment: '',
+  //       }
+  //     };
+  //   },
+  //   methods: {
+  
+  //     Submit() {
+  //       this.users.push(this.user)
+  //       this.user = {Comment:'',};
+  //       console.log(this.users)
+  //       this.users.forEach((Comment) => {
+  //       supabase.from('posts').insert([Comment])
+  //           .then(({ data, error }) => {
+  //               if (error) {
+  //                   console.error(error.message);
+  //               } else {
+  //                   console.log(data);
+  //                   document.querySelector("h2").textContent = (this.user.Comment);
+
+  //               }
+  //           });
+  //   });
+  // },
+  //   }
+  // }
 
   </script>
   

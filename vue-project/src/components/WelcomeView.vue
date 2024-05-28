@@ -15,13 +15,16 @@
     </header>
       </div>
       <div>
-          <h1 class="page"> Welcome! </h1>
+          <h1 class="page"> Welcome {{username.user}}! </h1>
       </div>
   </template>
   
-  <script setup>
+  <script>
   import { RouterLink } from 'vue-router'
-
+  import {supabase} from '@/lib/supabaseClient.js'
+  const { data: { user } } = await supabase.auth.getUser()
+  const username = user.Username
+  console.log(username)
   </script>
   
   <style >
