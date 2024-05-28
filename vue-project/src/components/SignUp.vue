@@ -25,7 +25,7 @@
   </div>
 </template>
   
-  <script>
+  <script> 
   import { RouterLink, RouterView } from 'vue-router'
 import {supabase} from '@/lib/supabaseClient.js'
 
