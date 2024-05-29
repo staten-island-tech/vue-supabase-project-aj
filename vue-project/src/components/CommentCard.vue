@@ -1,0 +1,16 @@
+<template>
+    <div>
+        <h2>{{ comments.Comment }}</h2>
+    </div>
+</template>
+
+<script setup>
+
+const props = defineProps({
+    comment: Object,
+})
+</script>
+
+<style scoped>
+
+</style>

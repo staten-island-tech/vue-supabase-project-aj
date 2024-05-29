@@ -21,65 +21,59 @@
         </div>
         <button type="submit" class="button">Submit</button>
         </form>
-        <div v-if="Submit">
-          <h2>Comment: {{ }}</h2>
-        </div>
+        <CommentCard
+          v-for="comment in comments"
+          :key="comment.ID"
+          :comment = "comment"
+          />
           </div>
       </div>
   </template>
   
   <script>
-  import { RouterLink } from 'vue-router'
-  import { supabase } from '@/lib/supabaseClient.js'
+import{ref, onBeforeMount} from 'vue'
+  import {supabase} from '@/lib/supabaseClient.js'
+  import CommentCard from '@/components/CommentCard.vue'
+  const comments = ref('')
 
-  Comment(() => {
-    const type = async () => {
-      const {data, error} = await supabase
-      .from('posts')
-      .select()
-
-      if (error){
-        console.log(error.message)
-      }
-      else {
-        console.log(data)
-      }
-    }
-    type()
+  async function getcomment(){
+    let {data: Comment, error} = await supabase.from('posts').select('*')
+    comments.value = Comment;
+    console.log(comments.value)
+  }
+  onBeforeMount(()=> {
+    getcomment()
   })
 
-
-  // export default {
-  //   data() {
-  //     return {
-  //       users: [],
+  export default {
+    data() {
+      return {
+        users: [],
   
-  //       user: {
-  //         Comment: '',
-  //       }
-  //     };
-  //   },
-  //   methods: {
+        user: {
+          Comment: '',
+        }
+      };
+    },
+    methods: {
   
-  //     Submit() {
-  //       this.users.push(this.user)
-  //       this.user = {Comment:'',};
-  //       console.log(this.users)
-  //       this.users.forEach((Comment) => {
-  //       supabase.from('posts').insert([Comment])
-  //           .then(({ data, error }) => {
-  //               if (error) {
-  //                   console.error(error.message);
-  //               } else {
-  //                   console.log(data);
-  //                   document.querySelector("h2").textContent = (this.user.Comment);
-
-  //               }
-  //           });
-  //   });
-  // },
-  //   }
-  // }
+      Submit() {
+        this.users.push(this.user)
+        this.user = {Comment:'',};
+        console.log(this.users)
+        this.users.forEach((Comment) => {
+        supabase.from('posts').insert([Comment])
+            .then(({ data, error }) => {
+                if (error) {
+                    console.error(error.message);
+                } else {
+                    console.log(data);
+                }
+            });
+    });
+  },
+    }
+  }
 
   </script>
   

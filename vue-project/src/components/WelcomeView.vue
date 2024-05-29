@@ -15,16 +15,32 @@
     </header>
       </div>
       <div>
-          <h1 class="page"> Welcome {{username.user}}! </h1>
+          <h1 class="page"> Welcome!</h1>
+          <!-- <CommentCard
+          v-for="comment in comments"
+          :key="comment.ID"
+          :comment = "comment"
+          /> -->
       </div>
   </template>
   
   <script>
-  import { RouterLink } from 'vue-router'
-  import {supabase} from '@/lib/supabaseClient.js'
-  const { data: { user } } = await supabase.auth.getUser()
-  const username = user.Username
-  console.log(username)
+  // import { RouterLink } from 'vue-router'
+  // import {supabase} from '@/lib/supabaseClient.js'
+  // const { data: { user } } = await supabase.auth.getUser()
+  // const username = user.Username
+  // console.log(username)
+  // import{ref, onBeforeMount} from 'vue'
+  // import {supabase} from '@/lib/supabaseClient.js'
+  // const comments = ref('')
+
+  // async function getcomment(){
+  //   let {data: comment, error} = await supabase.from('posts').select('*')
+  //   comments.value = comment;
+  // }
+  // onBeforeMount(()=> {
+  //   getcomment()
+  // })
   </script>
   
   <style >
