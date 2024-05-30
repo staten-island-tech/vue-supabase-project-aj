@@ -1,61 +1,97 @@
 <template>
   <br>
-      <div>
-          <header class="header">
-        <nav>
-  
-           <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
-           <RouterLink class="navigate"to="/friends">Friends</RouterLink>
-           <RouterLink class="navigate"to="/profile">Profile</RouterLink>
-     
-        </nav>
-        <div>
-  
-        </div>
-    </header>
-      </div>
-      <div>
-          <h1 class="page"> Welcome! </h1>
-      </div>
-  </template>
-  
-  <script setup>
-  import { RouterLink } from 'vue-router'
+  <div>
+    <header class="header">
+      <nav>
 
-  </script>
-  
-  <style >
-  .body{
-      align-items: center;
-  }
-  .navigate{
-      padding: 10px 20px;
-      margin-right: 10px; 
-      background-color:rgb(57, 188, 231);
-      color: white; 
-      border-radius: 5px; 
-      cursor: pointer; 
-      text-decoration: none; 
-      transition: background-color 0.3s; 
-      align-items: center;
-      justify-content: center;
-      margin: 50px;
+        <RouterLink class="navigate" to="/fyp">FYP</RouterLink>
+        <RouterLink class="navigate" to="/friends">Friends</RouterLink>
+        <RouterLink class="navigate" to="/profile">Profile</RouterLink>
+
+      </nav>
+      <div>
+
+      </div>
+    </header>
+  </div>
+  <div>
+    <h1 class="page"> Welcome! {{ user.Username }}</h1>
+  </div>
+</template>
+
+<script>
+import { RouterLink } from 'vue-router'
+import { supabase } from '@/lib/supabaseClient.js'
+
+export default {
+  data() {
+    return {
+      user: {
+        Username: ''
+      }
+    };
+  },
+  methods: {
+    async Submit() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
+
+        let { error } = await supabase
+          .from('profiles')
+          .update({ Username: this.user.Username })
+          .eq('id', user.id)
+
+        if (error) {
+          console.log(error.message)
+        } else {
+          document.querySelector("h1").textContent = (this.user.Username);
+        }
+      } catch (error) {
+        console.error('Unexpected error:', error)
+      }
+      this.user.Username;
     }
-    .navigate:hover {
-      background-color: rgb(138, 198, 218); 
-    }
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-  
   }
-  .page{
-    align-items: center;
-    justify-content: center;
-  }
-  
-  
-  </style>
-    
+}
+
+</script>
+
+<style>
+.body {
+  align-items: center;
+}
+
+.navigate {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: rgb(57, 188, 231);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
+}
+
+.navigate:hover {
+  background-color: rgb(138, 198, 218);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 100px;
+}
+</style>
