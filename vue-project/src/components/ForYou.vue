@@ -23,7 +23,7 @@
         </form>
         <CommentCard
           v-for="comment in comments"
-          :key="comment.ID"
+          :key="comment.comment"
           :comment = "comment"
           />
           </div>
@@ -32,14 +32,14 @@
   
   <script>
 import{ref, onBeforeMount} from 'vue'
+import CommentCard from "@/components/CommentCard.vue";
   import {supabase} from '@/lib/supabaseClient.js'
-  import CommentCard from '@/components/CommentCard.vue'
   const comments = ref('')
 
   async function getcomment(){
-    let {data: Comment, error} = await supabase.from('posts').select('*')
-    comments.value = Comment;
-    console.log(comments.value)
+    let {data: comment, error} = await supabase.from('posts').select('*').eq('Comment')
+    comments.value = comment;
+    console.log(comment)
   }
   onBeforeMount(()=> {
     getcomment()
