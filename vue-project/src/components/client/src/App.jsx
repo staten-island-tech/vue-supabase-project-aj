@@ -1,12 +1,13 @@
 import logo from './logo.svg';
 import { useState, useEffect} from 'react';
 import './App.css';
-import { Container, Form, Button, Row, Col, Card} from 'react-bootstrap'
-import 'bootstrap/dist.css/bootstrap/min.css'
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react"
+import { Container, Form, Button, Row, Col, Card} from 'react-bootstrap';
+import 'bootstrap/dist.css/bootstrap/min.css';
+import { useUser, useSupabaseClient } from "@supabase/supabase-js";
 import {v4 as uuidv4 } from 'uuid';
 
-const CDNURL ="https://givenxncncbjahyqmfpn.supabase.co/storage/v1/object/public/avatar"
+const CDNURL ="https://supabase.com/dashboard/project/givenxncncbjahyqmfpn/storage/buckets/avatars"
+
 function App() {
   const [email, setEmail ] = useState("")
   const [ images, setImages] = useState([]);
@@ -15,7 +16,8 @@ function App() {
 
   async function getImages() {
     const { data, error} = await supabase
-    .storagefrom('images')
+    .storage
+    .from('images')
     .list(user?.id + "/", {
       limit: 100,
       offset: 0,
@@ -28,6 +30,12 @@ setImages(data);
       alert("Error")
     }
   }
+
+  useEffect(() => {
+    if(user) {
+      getImages();
+    }
+  }, [user])
   async function magicLinkLogin() {
     const { data, error} = await supabase.auth.signInWithOtp({
       email: email
@@ -93,17 +101,33 @@ setImages(data);
   <p>Current user: {user.email}</p>
   <p>use choose file button to upload image</p>
   <Form.Group className="mb-3" style={{maxWidth: "500px"}}>
-    <Form.Control type ="file" accpet ="image/png, image/jpeg" onChange={(e) => uploadImage(e)}/>
+    <Form.Control type ="file" accept ="image/png, image/jpeg" onChange={(e) => uploadImage(e)}/>
 
   </Form.Group>
   <hr />
   <h3> Your Images </h3>
-  <Row xs =
+  <Row xs = {1} md={3} className="g-4">
+    {images.map((image) => {
+      return(
+        <Col key={CDNURL + user.id + "/" + image.name}>
+        <Card>
+          <Card.Img variant="top" src={CDNURL + user.id +"/" + image.name} />
+          <Card.Body>
+            <Button variant="danger"> Delete Image</Button>
+          </Card.Body>
+          </Card>
+          </Col>
+      )
+    })}
+  </Row>
   </>
   }
     </Container>
   );
   
 }
+export { App } 
 
-export default App;
+
+
+

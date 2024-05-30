@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
       <br>
         <header class="header">
@@ -66,17 +66,17 @@
     
   }
   }
-}
-/* const { data, error } = await supabase
+} 
+ const { data, error } = await supabase
   .storage
   .updateBucket('avatars', {
     public: false,
     allowedMimeTypes: ['image/png'],
     fileSizeLimit: 1024,
-  }) */
+  }) 
 
 
-  </script>
+/*   </script>
   <style >
   .body{
       align-items: center;
@@ -108,4 +108,10 @@
     align-items: center;
     justify-content: center;
   }
-  </style>
+  </style> -->
+  <template>
+
+  </template>
+  <script >
+import { App } from '@components/client/src/App.jsx'
+</script>
