@@ -1,47 +1,54 @@
 <template>
   <br>
+  <div>
+    <header class="header">
+      <nav>
+        <RouterLink class="navigate" to="/fyp">FYP</RouterLink>
+        <RouterLink class="navigate" to="/friends">Friends</RouterLink>
+        <RouterLink class="navigate" to="/profile">Profile</RouterLink>
+      </nav>
       <div>
-          <header class="header">
-        <nav>
-  
-           <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
-           <RouterLink class="navigate"to="/friends">Friends</RouterLink>
-           <RouterLink class="navigate"to="/profile">Profile</RouterLink>
-     
-        </nav>
-        <div>
-  
-        </div>
+      </div>
     </header>
-      </div>
-      <div>
-          <h1 class="page"> Welcome!</h1>
-          <!-- <CommentCard
-          v-for="comment in comments"
-          :key="comment.ID"
-          :comment = "comment"
-          /> -->
-      </div>
-  </template>
-  
-  <script>
-  // import { RouterLink } from 'vue-router'
-  // import {supabase} from '@/lib/supabaseClient.js'
-  // const { data: { user } } = await supabase.auth.getUser()
-  // const username = user.Username
-  // console.log(username)
-  // import{ref, onBeforeMount} from 'vue'
-  // import {supabase} from '@/lib/supabaseClient.js'
-  // const comments = ref('')
+  </div>
+  <div>
+    <h1 class="page"> Welcome, {{ username}}!</h1>
+  </div>
+</template>
 
-  // async function getcomment(){
-  //   let {data: comment, error} = await supabase.from('posts').select('*')
-  //   comments.value = comment;
-  // }
-  // onBeforeMount(()=> {
-  //   getcomment()
-  // })
-  </script>
+<script setup>
+// import { ref, onMounted } from 'vue';
+// import { supabase } from '@/lib/supabaseClient.js';
+
+// const username = ref('');
+
+// const getUserDetails = async () => {
+//   const { data: { user }, error } = await supabase.auth.getUser();
+//   if (error) {
+//     console.error('Error fetching user details:', error.message);
+//     return;
+//   }
+
+//   if (user) {
+//     const { data: userDetails, error: userDetailsError } = await supabase
+//       .from('users')
+//       .select('username')
+//       .eq('id', user.id)
+//       .single();
+
+//     if (userDetailsError) {
+//       console.error('Error fetching user details:', userDetailsError.message);
+//     } else {
+//       username.value = userDetails.username;
+//     }
+//   }
+// };
+
+// onMounted(() => {
+//   getUserDetails();
+// });
+</script>
+ 
   
   <style >
   .body{

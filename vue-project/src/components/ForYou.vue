@@ -1,81 +1,65 @@
 <template>
-    <br>
-    <div>
-        <header class="header">
+  <br>
+  <div>
+    <header class="header">
       <nav>
-  
-         <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
-         <RouterLink class="navigate"to="/friends">Friends</RouterLink>
-         <RouterLink class="navigate"to="/profile">Profile</RouterLink>
-   
+        <RouterLink class="navigate" to="/fyp">FYP</RouterLink>
+        <RouterLink class="navigate" to="/friends">Friends</RouterLink>
+        <RouterLink class="navigate" to="/profile">Profile</RouterLink>
       </nav>
-  </header>
-    </div>
-      <div>
-          <h1 class="page">FYP</h1>
-          <div class="header">
-      <form @submit.prevent="Submit" class="form">
+    </header>
+  </div>
+  <div>
+    <h1 class="page">FYP</h1>
+    <div class="header">
+      <form @submit.prevent="submit" class="form">
         <div class="form1">
-          <label for="namee">Comment</label>
+          <label for="comment">Comment</label>
           <input type="text" required v-model="user.Comment" id="comment" class="form2">
         </div>
         <button type="submit" class="button">Submit</button>
-        </form>
-        <CommentCard
-          v-for="comment in comments"
-          :key="comment.comment"
-          :comment = "comment"
-          />
-          </div>
-      </div>
-  </template>
-  
-  <script>
-import{ref, onBeforeMount} from 'vue'
+      </form>
+      <CommentCard
+        v-for="comment in comments"
+        :key="comment.id"
+        :comment="comment"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
 import CommentCard from "@/components/CommentCard.vue";
-  import {supabase} from '@/lib/supabaseClient.js'
-  const comments = ref('')
+import { supabase } from '@/lib/supabaseClient.js';
 
-  async function getcomment(){
-    let {data: comment, error} = await supabase.from('posts').select('*').eq('Comment')
-    comments.value = comment;
-    console.log(comment)
+const comments = ref([]);
+const user = ref({ Comment: '' });
+
+const get = async () => {
+  let { data: commentsData, error } = await supabase.from('posts').select('*');
+  if (error) {
+    console.log(error);
+  } else {
+    comments.value = commentsData;
   }
-  onBeforeMount(()=> {
-    getcomment()
-  })
+};
 
-  export default {
-    data() {
-      return {
-        users: [],
-  
-        user: {
-          Comment: '',
-        }
-      };
-    },
-    methods: {
-  
-      Submit() {
-        this.users.push(this.user)
-        this.user = {Comment:'',};
-        console.log(this.users)
-        this.users.forEach((Comment) => {
-        supabase.from('posts').insert([Comment])
-            .then(({ data, error }) => {
-                if (error) {
-                    console.error(error.message);
-                } else {
-                    console.log(data);
-                }
-            });
-    });
-  },
-    }
+const submit = async () => {
+  const { data, error } = await supabase.from('posts').insert([user.value]);
+  if (error) {
+    console.log(error.message);
+  } else {
+    console.log(data);
+    get(); 
+    user.value.Comment = ''; 
   }
+};
 
-  </script>
+onMounted(() => {
+  get();
+});
+</script>
   
   <style >
   .body{
