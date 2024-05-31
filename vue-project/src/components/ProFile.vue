@@ -13,7 +13,7 @@
     <h1 class="page">Profile</h1>
       </div>
       <div class="header">
-    <form @Submit.prevent="Submit" class="form">
+    <form @submit.prevent="Submit" class="form">
       <div class="form1">
         <label for="name">Username</label>
         <input type="text" required v-model="user.Username" id="name" class="form2">
@@ -27,7 +27,7 @@
 
 <script>
 </script>
-<!--   <script>
+   <script>
   import { RouterLink } from 'vue-router'
   import { supabase } from '@/lib/supabaseClient'
 
@@ -65,7 +65,7 @@
 
   } 
 
- /*const { data, error } = await supabase
+ const { data, error } = await supabase
   .storage
   .updateBucket('avatars', {
     public: false,
@@ -106,4 +106,4 @@
     align-items: center;
     justify-content: center;
   }
-  </style> -->
+  </style> 
