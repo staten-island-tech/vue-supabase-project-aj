@@ -12,10 +12,32 @@
   </header>
     </div>
       <h1 class="page">Friends</h1>
+       <PeopleCard
+        v-for="user in users"
+        :key="user.id"
+        :user="user"
+      />
   </template>
   
   <script setup>
-  import { RouterLink } from 'vue-router'
+  import { ref, onMounted } from 'vue';
+  import PeopleCard from '@/components/PeopleCard.vue'
+import { supabase } from '@/lib/supabaseClient.js';
+
+const users = ref([]);
+
+const get = async () => {
+  let { data: ppl, error } = await supabase.from('profiles').select('*');
+  if (error) {
+    console.log(error);
+  } else {
+    users.value = ppl;
+  }
+};
+
+onMounted(() => {
+  get();
+});
   </script>
   
   <style >

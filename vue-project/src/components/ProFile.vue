@@ -54,7 +54,7 @@
           this.user.Username = ''
         }
       } catch (error) {
-        console.error('Unexpected error:', error)
+        console.log('Unexpected error:', error)
       }
     }
   }

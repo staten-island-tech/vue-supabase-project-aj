@@ -37,11 +37,11 @@ const comments = ref([]);
 const user = ref({ Comment: '' });
 
 const get = async () => {
-  let { data: commentsData, error } = await supabase.from('posts').select('*');
+  let { data: comment, error } = await supabase.from('posts').select('*');
   if (error) {
     console.log(error);
   } else {
-    comments.value = commentsData;
+    comments.value = comment;
   }
 };
 
