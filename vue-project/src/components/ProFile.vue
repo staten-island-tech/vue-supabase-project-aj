@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
     <div>
       <br>
         <header class="header">
@@ -10,25 +10,26 @@
    
       </nav>
   </header>
-    </div>
-    <div>
     <h1 class="page">Profile</h1>
       </div>
       <div class="header">
-    <form @submit.prevent="Submit" class="form">
+    <form @Submit.prevent="Submit" class="form">
       <div class="form1">
-        <label for="namee">Username</label>
-        <input type="text" required v-model="user.Username" id="namee" class="form2">
+        <label for="name">Username</label>
+        <input type="text" required v-model="user.Username" id="name" class="form2">
       </div>
       <button type="submit" class="button">Submit</button>
     </form>
     </div>
     <input type="file" @change="onFileSelected">
-    <button @click ="onUpload">Upload</button>
+
   </template>
-  <script>
+
+<script>
+</script>
+<!--   <script>
   import { RouterLink } from 'vue-router'
-  import { supabase } from '@/lib/supabaseClient.js'
+  import { supabase } from '@/lib/supabaseClient'
 
   export default {
   data() {
@@ -38,8 +39,8 @@
         selectedFile: null
       }
     };
-  },
-  methods: {
+  }, 
+   methods: {
     async Submit() {
       try {
         const { data: { user } } = await supabase.auth.getUser()
@@ -59,15 +60,12 @@
         console.error('Unexpected error:', error)
       }
     },
-    onFileSelected(event) {
-    this.selectedFile = event.target.files[0]
-  },
-  onUpload() {
-    
-  }
-  }
-} 
- const { data, error } = await supabase
+
+  }, 
+
+  } 
+
+ /*const { data, error } = await supabase
   .storage
   .updateBucket('avatars', {
     public: false,
@@ -76,7 +74,7 @@
   }) 
 
 
-/*   </script>
+  </script>
   <style >
   .body{
       align-items: center;
@@ -109,9 +107,3 @@
     justify-content: center;
   }
   </style> -->
-  <template>
-
-  </template>
-  <script >
-import { App } from '@components/client/src/App.jsx'
-</script>
