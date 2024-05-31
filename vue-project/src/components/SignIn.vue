@@ -57,8 +57,28 @@
           console.log(error.message)
         }
       },
-      Submit() {
-        this.login()
+      async getUser(){
+        try {
+   
+        let { data, error } = await supabase
+        .from('profiles')
+        .select('Username')
+        .eq('id', user.id)
+
+        if (error) {
+          console.log(error.message)
+        } else {
+          console.log('Username updated successfully')
+          document.querySelector("h3").textContent = (this.user.Username);
+          useAuthStore.$username = data
+        }
+        } catch (error) {
+          console.error('Unexpected error:', error)
+        }
+      },
+      async Submit() {
+        await this.login()
+        this.getUser()
       }
     }
   }
