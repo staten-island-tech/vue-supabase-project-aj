@@ -1,5 +1,84 @@
+
+   <script>
+<script setup>
+import { supabase } from '../supabase'
+import { onMounted, ref, toRefs } from 'vue'
+
+const props = defineProps(['session'])
+const { session } = toRefs(props)
+
+const loading = ref(true)
+const username = ref('')
+const website = ref('')
+const avatar_url = ref('')
+
+onMounted(() => {
+  getProfile()
+})
+
+async function getProfile() {
+  try {
+    loading.value = true
+    const { user } = session.value
+
+    const { data, error, status } = await supabase
+      .from('profiles')
+      .select(`username, website, avatar_url`)
+      .eq('id', user.id)
+      .single()
+
+    if (error && status !== 406) throw error
+
+    if (data) {
+      username.value = data.username
+      website.value = data.website
+      avatar_url.value = data.avatar_url
+    }
+  } catch (error) {
+    alert(error.message)
+  } finally {
+    loading.value = false
+  }
+}
+
+async function updateProfile() {
+  try {
+    loading.value = true
+    const { user } = session.value
+
+    const updates = {
+      id: user.id,
+      username: username.value,
+      website: website.value,
+      avatar_url: avatar_url.value,
+      updated_at: new Date(),
+    }
+
+    const { error } = await supabase.from('profiles').upsert(updates)
+
+    if (error) throw error
+  } catch (error) {
+    alert(error.message)
+  } finally {
+    loading.value = false
+  }
+}
+
+async function signOut() {
+  try {
+    loading.value = true
+    const { error } = await supabase.auth.signOut()
+    if (error) throw error
+  } catch (error) {
+    alert(error.message)
+  } finally {
+    loading.value = false
+  }
+}
+</script>
+
 <template>
-    <div>
+        <div>
       <br>
         <header class="header">
       <nav>
@@ -12,68 +91,34 @@
   </header>
     <h1 class="page">Profile</h1>
       </div>
-      <div class="header">
-    <form @submit.prevent="Submit" class="form">
-      <div class="form1">
-        <label for="name">Username</label>
-        <input type="text" required v-model="user.Username" id="name" class="form2">
-      </div>
-      <button type="submit" class="button">Submit</button>
-    </form>
+  <form class="form-widget" @submit.prevent="updateProfile">
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="text" :value="session.user.email" disabled />
     </div>
-    <input type="file" @change="onFileSelected">
+    <div>
+      <label for="username">Name</label>
+      <input id="username" type="text" v-model="username" />
+    </div>
+    <div>
+      <label for="website">Website</label>
+      <input id="website" type="url" v-model="website" />
+    </div>
 
-  </template>
+    <div>
+      <input
+        type="submit"
+        class="button primary block"
+        :value="loading ? 'Loading ...' : 'Update'"
+        :disabled="loading"
+      />
+    </div>
 
-<script>
-</script>
-   <script>
-  import { RouterLink } from 'vue-router'
-  import { supabase } from '@/lib/supabaseClient'
-
-  export default {
-  data() {
-    return {
-      user: {
-        Username: '',
-        selectedFile: null
-      }
-    };
-  }, 
-   methods: {
-    async Submit() {
-      try {
-        const { data: { user } } = await supabase.auth.getUser()
-   
-        let { error } = await supabase
-          .from('profiles')
-          .update({ Username: this.user.Username })
-          .eq('id', user.id)
-
-        if (error) {
-          console.log(error.message)
-        } else {
-          console.log('Username updated successfully')
-          this.user.Username = ''
-        }
-      } catch (error) {
-        console.error('Unexpected error:', error)
-      }
-    },
-
-  }, 
-
-  } 
-
- const { data, error } = await supabase
-  .storage
-  .updateBucket('avatars', {
-    public: false,
-    allowedMimeTypes: ['image/png'],
-    fileSizeLimit: 1024,
-  }) 
-
-
+    <div>
+      <button class="button block" @click="signOut" :disabled="loading">Sign Out</button>
+    </div>
+  </form>
+</template>
   </script>
   <style >
   .body{
