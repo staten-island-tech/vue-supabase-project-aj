@@ -59,13 +59,6 @@
     }
   }
 }
-// const { data, error } = await supabase
-//   .storage
-//   .updateBucket('avatars', {
-//     public: false,
-//     allowedMimeTypes: ['image/png'],
-//     fileSizeLimit: 1024,
-//   })
   </script>
   <style >
   .body{

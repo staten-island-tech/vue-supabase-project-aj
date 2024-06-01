@@ -11,19 +11,21 @@
   </div>
   <div>
     <h1 class="page">FYP</h1>
-    <div class="header">
+    <div class="post-section">
       <form @submit.prevent="submit" class="form">
-        <div class="form1">
+        <div class="form-group">
           <label for="comment">Comment</label>
-          <input type="text" required v-model="user.Comment" id="comment" class="form2">
+          <input type="text" required v-model="user.Comment" id="comment" class="form-input">
         </div>
         <button type="submit" class="button">Submit</button>
       </form>
-      <CommentCard
-        v-for="comment in comments"
-        :key="comment.id"
-        :comment="comment"
-      />
+      <div class="comments-container">
+        <CommentCard
+          v-for="comment in comments"
+          :key="comment.id"
+          :comment="comment"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -60,36 +62,57 @@ onMounted(() => {
   get();
 });
 </script>
-  
-  <style >
-  .body{
-      align-items: center;
-  }
-  .navigate{
-      padding: 10px 20px;
-      margin-right: 10px; 
-      background-color:rgb(57, 188, 231);
-      color: white; 
-      border-radius: 5px; 
-      cursor: pointer; 
-      text-decoration: none; 
-      transition: background-color 0.3s; 
-      align-items: center;
-      justify-content: center;
-      margin: 50px;
-    }
-    .navigate:hover {
-      background-color: rgb(138, 198, 218); 
-    }
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-  
-  }
-  .page{
-    align-items: center;
-    justify-content: center;
-  }
-  </style>
+
+<style scoped>
+.page {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.post-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.button {
+  background-color: #3b5998;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  align-self: center;
+}
+
+.button:hover {
+  background-color: #2d4373;
+}
+
+.comments-container {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+</style>
