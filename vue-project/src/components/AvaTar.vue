@@ -54,7 +54,7 @@ watch(path, () => {
     <img
       v-if="src"
       :src="src"
-      alt="Avatar"
+      alt="AvaTar"
       class="avatar image"
       :style="{ height: size + 'em', width: size + 'em' }"
     />
