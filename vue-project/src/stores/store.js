@@ -1,1 +1,7 @@
-export const { data: { user } } = await supabase.auth.getUser()
+import { defineStore } from 'pinia';
+
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    followedUsers: [], 
+  }),
+});

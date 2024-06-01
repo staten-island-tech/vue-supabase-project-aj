@@ -1,11 +1,16 @@
 <template>
     <div class="card">
       <h2>{{ user.Username || 'no username' }}</h2>
-      <button class="button">Follow</button>
+      <button class="button" @click="follow">Follow</button>
     </div>
   </template>
   
   <script setup>
+  import {useAuthStore} from '@/stores/store.js'
+  const store = useAuthStore()
+  const follow = () => {
+    
+  }
   const props = defineProps({
     user: Object,
   });
