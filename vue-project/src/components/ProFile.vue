@@ -1,9 +1,8 @@
 
-   <script>
 <script setup>
 import { supabase } from '../supabase'
 import { onMounted, ref, toRefs } from 'vue'
-import AvaTar from  './AvaTar.vue
+import AvaTar from  './AvaTar.vue'
 const props = defineProps(['session'])
 const { session } = toRefs(props)
 
@@ -120,7 +119,7 @@ async function signOut() {
   </form>
      <form class="form-widget" @submit.prevent="updateProfile">
     <!-- Add to body -->
-    <Avatar v-model:path="avatar_url" @upload="updateProfile" size="10" />
+    <AvaTar v-model:path="avatar_url" @upload="updateProfile" size="10" />
 
     <!-- Other form elements -->
   </form>
