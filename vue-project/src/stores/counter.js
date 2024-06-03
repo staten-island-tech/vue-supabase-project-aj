@@ -4,10 +4,7 @@ import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: {
-      username: ref(''),
-      
-    }
+    user: null
   }),
   actions: {
     setUser(newUser) {

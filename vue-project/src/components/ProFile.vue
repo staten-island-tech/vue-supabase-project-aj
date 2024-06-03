@@ -7,7 +7,6 @@
          <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
          <RouterLink class="navigate"to="/friends">Friends</RouterLink>
          <RouterLink class="navigate"to="/profile">Profile</RouterLink>
-         <RouterLink class="navigate"to="/home">Home</RouterLink>
    
       </nav>
   </header>
@@ -37,10 +36,10 @@
   </template>
 
 
-<script>
+  <script>
   import { RouterLink } from 'vue-router'
   import { supabase } from '@/lib/supabaseClient.js'
-  import { useAuthStore } from '@/stores/counter';
+
   export default {
   data() {
     return {
@@ -52,8 +51,9 @@
   methods: {
     async Submit() {
       try {
+        const { data: { user } } = await supabase.auth.getUser()
    
-        let { data, error } = await supabase
+        let { error } = await supabase
           .from('profiles')
           .update({ Username: this.user.Username })
           .eq('id', user.id)
@@ -63,11 +63,11 @@
         } else {
           console.log('Username updated successfully')
           document.querySelector("h3").textContent = (this.user.Username);
-          useAuthStore.$username = data.Username
         }
       } catch (error) {
         console.error('Unexpected error:', error)
       }
+      this.user.Username;
     }
   }
 }

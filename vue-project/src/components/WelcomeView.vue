@@ -15,14 +15,44 @@
     </header>
   </div>
   <div>
-    <h1 class="page"> Welcome! {{ useAuthStore.$username }}</h1>
+    <h1 class="page"> Welcome! {{ user.Username }}</h1>
   </div>
 </template>
 
-<script setup>
+<script>
 import { RouterLink } from 'vue-router'
 import { supabase } from '@/lib/supabaseClient.js'
-import { useAuthStore } from '@/stores/counter';
+
+export default {
+  data() {
+    return {
+      user: {
+        Username: ''
+      }
+    };
+  },
+  methods: {
+    async Submit() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
+
+        let { error } = await supabase
+          .from('profiles')
+          .update({ Username: this.user.Username })
+          .eq('id', user.id)
+
+        if (error) {
+          console.log(error.message)
+        } else {
+          document.querySelector("h1").textContent = (this.user.Username);
+        }
+      } catch (error) {
+        console.error('Unexpected error:', error)
+      }
+      this.user.Username;
+    }
+  }
+}
 
 </script>
 
