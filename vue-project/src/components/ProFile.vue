@@ -1,8 +1,9 @@
-
-<script setup>
-import { supabase } from '../supabase'
+<!-- 
+<script>
+import { supabase } from '@/lib/supabaseClient.js'
 import { onMounted, ref, toRefs } from 'vue'
-import AvaTar from  './AvaTar.vue'
+import  AvaTar  from  '@/components/AvaTar.vue'
+import { defineProps } from 'vue'
 const props = defineProps(['session'])
 const { session } = toRefs(props)
 
@@ -10,6 +11,7 @@ const loading = ref(true)
 const username = ref('')
 const website = ref('')
 const avatar_url = ref('')
+const user = ref('')
 
 onMounted(() => {
   getProfile()
@@ -32,6 +34,7 @@ async function getProfile() {
       username.value = data.username
       website.value = data.website
       avatar_url.value = data.avatar_url
+      user.value = data.user
     }
   } catch (error) {
     alert(error.message)
@@ -50,6 +53,7 @@ async function updateProfile() {
       username: username.value,
       website: website.value,
       avatar_url: avatar_url.value,
+      user: user.value,
       updated_at: new Date(),
     }
 
@@ -88,6 +92,7 @@ async function signOut() {
    
       </nav>
   </header>
+  
     <h1 class="page">Profile</h1>
       </div>
   <form class="form-widget" @submit.prevent="updateProfile">
@@ -118,13 +123,16 @@ async function signOut() {
     </div>
   </form>
      <form class="form-widget" @submit.prevent="updateProfile">
-    <!-- Add to body -->
+ 
     <AvaTar v-model:path="avatar_url" @upload="updateProfile" size="10" />
 
-    <!-- Other form elements -->
+   
   </form>
-</template>
-  </script>
+</template> -->
+  <template>
+    
+  </template>
+
   <style >
   .body{
       align-items: center;
