@@ -1,10 +1,12 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: null
+    user: {
+      username: ref(''),
+      
+    }
   }),
   actions: {
     setUser(newUser) {

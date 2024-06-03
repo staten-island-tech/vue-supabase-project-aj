@@ -7,6 +7,7 @@
          <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
          <RouterLink class="navigate"to="/friends">Friends</RouterLink>
          <RouterLink class="navigate"to="/profile">Profile</RouterLink>
+         <RouterLink class="navigate" to="/welcome">Welcome</RouterLink>
    
       </nav>
   </header>
@@ -37,9 +38,9 @@
 
 
   <script>
-  import { RouterLink } from 'vue-router'
+   import { RouterLink } from 'vue-router'
   import { supabase } from '@/lib/supabaseClient.js'
-
+  import { useAuthStore } from '@/stores/counter';
   export default {
   data() {
     return {
@@ -63,21 +64,15 @@
         } else {
           console.log('Username updated successfully')
           document.querySelector("h3").textContent = (this.user.Username);
+          useAuthStore.$username = user.Username
         }
       } catch (error) {
         console.error('Unexpected error:', error)
       }
-      this.user.Username;
+
     }
   }
 }
-const { data, error } = await supabase
-  .storage
-  .updateBucket('avatars', {
-    public: false,
-    allowedMimeTypes: ['image/png'],
-    fileSizeLimit: 1024,
-  })
   </script>
   <style scooped>
   .body{
