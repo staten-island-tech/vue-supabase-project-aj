@@ -35,11 +35,15 @@ import { ref, onMounted } from 'vue';
 import CommentCard from "@/components/CommentCard.vue";
 import { supabase } from '@/lib/supabaseClient.js';
 
+
 const comments = ref([]);
 const user = ref({ Comment: '' });
 
 const get = async () => {
-  let { data: comment, error } = await supabase.from('posts').select('*');
+  let { data: comment, error } = await supabase
+    .from('posts').select('*')
+    // .select('*, profiles (Username)')
+    // .eq('posts.id', 'profiles.id'); 
   if (error) {
     console.log(error);
   } else {
@@ -48,7 +52,20 @@ const get = async () => {
 };
 
 const submit = async () => {
-  const { data, error } = await supabase.from('posts').insert([user.value]);
+  const { data: { user: current }, error: bad } = await supabase.auth.getUser();
+
+  if (bad) {
+    console.log(bad.message);
+    return;
+  }
+  
+  const post = {
+    Comment: user.value.Comment,
+    id: current.id
+  };
+  
+  const { data, error } = await supabase.from('posts').insert([post]);
+  
   if (error) {
     console.log(error.message);
   } else {
@@ -57,6 +74,9 @@ const submit = async () => {
     user.value.Comment = ''; 
   }
 };
+
+onMounted(get);
+
 
 onMounted(() => {
   get();

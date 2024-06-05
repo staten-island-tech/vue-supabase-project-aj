@@ -28,7 +28,6 @@
   <script>
   import { supabase } from '@/lib/supabaseClient.js'
   import { RouterLink, RouterView } from 'vue-router'
-  import {useUserStore} from '@/stores/counter.js'
 
   export default {
     data() {
@@ -50,11 +49,6 @@
             console.error(error.message)
             document.querySelector("h3").textContent = ("Wrong password or email")
           } else {
-            const userStore = useUserStore()
-          userStore.setUser({
-            userId: user.id,
-            username: user.Username, // Assuming username is stored in user metadata
-          })
             document.querySelector("h3").textContent = ("Yay you logged in successfully!");
             this.$router.push('/home')
           }

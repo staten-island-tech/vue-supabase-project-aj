@@ -7,6 +7,7 @@
          <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
          <RouterLink class="navigate"to="/friends">Friends</RouterLink>
          <RouterLink class="navigate"to="/profile">Profile</RouterLink>
+         <RouterLink class="navigate" to="/home">Home</RouterLink>
    
       </nav>
   </header>
@@ -23,11 +24,13 @@
       <button type="submit" class="button">Submit</button>
     </form>
     </div>
-    <input type="file">
   </template>
   <script>
   import { RouterLink } from 'vue-router'
   import { supabase } from '@/lib/supabaseClient.js'
+  import { useAuthStore } from '@/stores/counter'; 
+
+  const authStore = useAuthStore();
 
   export default {
   data() {
@@ -50,6 +53,9 @@
         if (error) {
           console.log(error.message)
         } else {
+          authStore.$patch({
+            username: user.Username
+          })
           console.log('Username updated successfully')
           this.user.Username = ''
         }

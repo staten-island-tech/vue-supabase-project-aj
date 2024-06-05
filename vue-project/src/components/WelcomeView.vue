@@ -12,42 +12,46 @@
     </header>
   </div>
   <div>
-    <h1 class="page"> Welcome, {{ username}}!</h1>
+    <h1 class="page"> Welcome, {{ authStore.user.username }}!</h1>
   </div>
 </template>
 
-<script setup>
-// import { ref, onMounted } from 'vue';
-// import { supabase } from '@/lib/supabaseClient.js';
+<script>
+  import { useAuthStore } from '@/stores/counter'; 
+import { RouterLink } from 'vue-router';
+import { supabase } from '@/lib/supabaseClient.js';
 
-// const username = ref('');
+export default {
+  setup() {
+    const authStore = useAuthStore(); 
 
-// const getUserDetails = async () => {
-//   const { data: { user }, error } = await supabase.auth.getUser();
-//   if (error) {
-//     console.error('Error fetching user details:', error.message);
-//     return;
-//   }
+    const submit = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        const { data: store, error } = await supabase
+          .from('profiles')
+          .select('Username')
+          .eq('id', user.id)
+          .single();
 
-//   if (user) {
-//     const { data: userDetails, error: userDetailsError } = await supabase
-//       .from('users')
-//       .select('username')
-//       .eq('id', user.id)
-//       .single();
-
-//     if (userDetailsError) {
-//       console.error('Error fetching user details:', userDetailsError.message);
-//     } else {
-//       username.value = userDetails.username;
-//     }
-//   }
-// };
-
-// onMounted(() => {
-//   getUserDetails();
-// });
+        if (error) {
+          console.log(error.message);
+        } else {
+          authStore.setUser({ username: store.Username }); 
+        }
+      } catch (error) {
+        console.log('Unexpected error:', error);
+      }
+    };
+    submit(); 
+    return {
+      submit,
+      authStore
+    };
+  },
+};
 </script>
+
  
   
   <style >
