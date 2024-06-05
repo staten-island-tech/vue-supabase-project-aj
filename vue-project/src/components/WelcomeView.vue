@@ -82,8 +82,11 @@ export default {
   
   }
   .page{
-    align-items: center;
-    justify-content: center;
+    flex: auto;
+  align-items: center;
+  font-size: 1.4rem;
+  text-align: center;
+  padding-top: 20rem;
   }
   
   

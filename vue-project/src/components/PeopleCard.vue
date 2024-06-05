@@ -1,7 +1,7 @@
 <template>
     <div class="card">
       <h2>{{ user.Username || 'no username' }}</h2>
-      <button class="button">Follow</button>
+      <button class="button" @click="followed()">Follow</button>
     </div>
   </template>
   
@@ -10,6 +10,12 @@
   const props = defineProps({
     user: Object,
   });
+  
+  function followed() {
+  const button = 
+  document.querySelector('button');
+  button.innerHTML = 'Following!';
+}
   </script>
   
   <style scoped>
