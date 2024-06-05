@@ -44,7 +44,9 @@
           const { user, session, error } = await supabase.auth.signInWithPassword({
             email: this.user.Email,
             password: this.user.Password
-          }) 
+          })
+          console.log(user)
+
           if (error) {
             console.error(error.message)
             document.querySelector("h3").textContent = ("Wrong password or email")

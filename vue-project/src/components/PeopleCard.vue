@@ -1,7 +1,7 @@
 <template>
     <div class="card">
       <h2>{{ user.Username || 'no username' }}</h2>
-      <button class="button">Follow</button>
+      <button class="button" @click="">Follow</button>
     </div>
   </template>
   
@@ -10,6 +10,10 @@
   const props = defineProps({
     user: Object,
   });
+
+
+
+
   </script>
   
   <style scoped>
