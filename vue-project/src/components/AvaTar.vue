@@ -20,6 +20,7 @@ const downloadImage = async () => {
   }
 }
 
+
 const uploadAvatar = async (evt) => {
   files.value = evt.target.files
   try {
@@ -47,9 +48,19 @@ const uploadAvatar = async (evt) => {
 watch(path, () => {
   if (path.value) downloadImage()
 })
+
 </script>
 
 <template>
+  <header class="header">
+      <nav>
+  
+         <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
+         <RouterLink class="navigate"to="/friends">Friends</RouterLink>
+         <RouterLink class="navigate"to="/profile">Profile</RouterLink>
+   
+      </nav>
+  </header>
   <div>
     <img
       v-if="src"
@@ -75,3 +86,27 @@ watch(path, () => {
     </div>
   </div>
 </template>
+<style>
+.header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+}
+.navigate{
+      padding: 10px 20px;
+      margin-right: 10px; 
+      background-color:rgb(57, 188, 231);
+      color: white; 
+      border-radius: 5px; 
+      cursor: pointer; 
+      text-decoration: none; 
+      transition: background-color 0.3s; 
+      align-items: center;
+      justify-content: center;
+      margin: 50px;
+    }
+    .navigate:hover {
+      background-color: rgb(138, 198, 218); 
+    }
+</style>
