@@ -7,7 +7,7 @@
          <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
          <RouterLink class="navigate"to="/friends">Friends</RouterLink>
          <RouterLink class="navigate"to="/profile">Profile</RouterLink>
-         <RouterLink class="navigate" to="/welcome">Welcome</RouterLink>
+         <RouterLink class="navigate" to="/home">Home</RouterLink>
    
       </nav>
   </header>
@@ -27,6 +27,16 @@
         <label for="namee">Username</label>
         <input type="text" required v-model="user.Username" id="namee" class="form2">
       </div>
+      <button type="submit" class="button">Submit</button>
+    </form>
+    </div>
+  </template>
+  <script>
+  import { RouterLink } from 'vue-router'
+  import { supabase } from '@/lib/supabaseClient.js'
+  import { useAuthStore } from '@/stores/counter'; 
+
+  const authStore = useAuthStore();
 
       <button type="submit" class="button">Submit</button>
         </form>
@@ -62,12 +72,15 @@
         if (error) {
           console.log(error.message)
         } else {
+          authStore.$patch({
+            username: user.Username
+          })
           console.log('Username updated successfully')
           document.querySelector("h3").textContent = (this.user.Username);
           useAuthStore.$username = user.Username
         }
       } catch (error) {
-        console.error('Unexpected error:', error)
+        console.log('Unexpected error:', error)
       }
 
     }

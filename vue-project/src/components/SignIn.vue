@@ -28,7 +28,6 @@
   <script>
   import { supabase } from '@/lib/supabaseClient.js'
   import { RouterLink, RouterView } from 'vue-router'
-/*   import { useAuthStore } from '@/stores/counter.js' */
 
   export default {
     data() {

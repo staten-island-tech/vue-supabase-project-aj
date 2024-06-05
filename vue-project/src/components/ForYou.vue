@@ -1,98 +1,138 @@
 <template>
-    <br>
-    <div>
-        <header class="header">
+  <br>
+  <div>
+    <header class="header">
       <nav>
-  
-         <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
-         <RouterLink class="navigate"to="/friends">Friends</RouterLink>
-         <RouterLink class="navigate"to="/profile">Profile</RouterLink>
-   
+        <RouterLink class="navigate" to="/fyp">FYP</RouterLink>
+        <RouterLink class="navigate" to="/friends">Friends</RouterLink>
+        <RouterLink class="navigate" to="/profile">Profile</RouterLink>
       </nav>
-  </header>
-    </div>
-      <div>
-          <h1 class="page">FYP</h1>
-          <div class="header">
-      <form @submit.prevent="Submit" class="form">
-        <div class="form1">
-          <label for="namee">Comment</label>
-          <input type="text" required v-model="user.Comment" id="comment" class="form2">
+    </header>
+  </div>
+  <div>
+    <h1 class="page">FYP</h1>
+    <div class="post-section">
+      <form @submit.prevent="submit" class="form">
+        <div class="form-group">
+          <label for="comment">Comment</label>
+          <input type="text" required v-model="user.Comment" id="comment" class="form-input">
         </div>
         <button type="submit" class="button">Submit</button>
-        </form>
-        <div v-if="Submit">
-          <h2>Comment: {{  }}</h2>
-        </div>
-          </div>
+      </form>
+      <div class="comments-container">
+        <CommentCard
+          v-for="comment in comments"
+          :key="comment.id"
+          :comment="comment"
+        />
       </div>
-  </template>
-  
-  <script>
-  import { RouterLink } from 'vue-router'
-  import { supabase } from '@/lib/supabaseClient.js'
+    </div>
+  </div>
+</template>
 
-  export default {
-    data() {
-      return {
-        users: [],
-  
-        user: {
-          Comment: '',
-        }
-      };
-    },
-    methods: {
-  
-      Submit() {
-        this.users.push(this.user)
-        this.user = {Comment:'',};
-        console.log(this.users)
-        this.users.forEach((Comment) => {
-        supabase.from('posts').insert([Comment])
-            .then(({ data, error }) => {
-                if (error) {
-                    console.error(error.message);
-                } else {
-                    console.log(data);
-                }
-            });
-    });
-  },
-    }
-  }
+<script setup>
+import { ref, onMounted } from 'vue';
+import CommentCard from "@/components/CommentCard.vue";
+import { supabase } from '@/lib/supabaseClient.js';
 
-  </script>
+
+const comments = ref([]);
+const user = ref({ Comment: '' });
+
+const get = async () => {
+  let { data: comment, error } = await supabase
+    .from('posts').select('*')
+    // .select('*, profiles (Username)')
+    // .eq('posts.id', 'profiles.id'); 
+  if (error) {
+    console.log(error);
+  } else {
+    comments.value = comment;
+  }
+};
+
+const submit = async () => {
+  const { data: { user: current }, error: bad } = await supabase.auth.getUser();
+
+  if (bad) {
+    console.log(bad.message);
+    return;
+  }
   
-  <style >
-  .body{
-      align-items: center;
-  }
-  .navigate{
-      padding: 10px 20px;
-      margin-right: 10px; 
-      background-color:rgb(57, 188, 231);
-      color: white; 
-      border-radius: 5px; 
-      cursor: pointer; 
-      text-decoration: none; 
-      transition: background-color 0.3s; 
-      align-items: center;
-      justify-content: center;
-      margin: 50px;
-    }
-    .navigate:hover {
-      background-color: rgb(138, 198, 218); 
-    }
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+  const post = {
+    Comment: user.value.Comment,
+    id: current.id
+  };
   
+  const { data, error } = await supabase.from('posts').insert([post]);
+  
+  if (error) {
+    console.log(error.message);
+  } else {
+    console.log(data);
+    get(); 
+    user.value.Comment = ''; 
   }
-  .page{
-    align-items: center;
-    justify-content: center;
-  }
-  </style>
+};
+
+onMounted(get);
+
+
+onMounted(() => {
+  get();
+});
+</script>
+
+<style scoped>
+.page {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.post-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.button {
+  background-color: #3b5998;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  align-self: center;
+}
+
+.button:hover {
+  background-color: #2d4373;
+}
+
+.comments-container {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+</style>
