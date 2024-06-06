@@ -1,10 +1,15 @@
-<script setup>
+<!-- <script setup>
 import { ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient.js'
 import { useAuthStore } from '@/stores/counter';
 const userStore = useAuthStore();
 
-/*   const uploadFile = async (event) => {
+ async function upload(e) {
+  const file = e.target.files[0]
+  const { data } = await supabase.storage.from('avatars').upload(file) 
+}
+upload(); 
+   const uploadFile = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
@@ -17,10 +22,10 @@ const userStore = useAuthStore();
       console.log('File uploaded successfully:', data);
       
     } catch (error) {
-      console.error('Error uploading file:', error.message);
+      console.error('Error uploading file:');
       
     }
-  }; */
+  }; 
 
 
 
@@ -38,7 +43,7 @@ const userStore = useAuthStore();
   </header>
   
   <form>
-    <label for="upload">Upload a profile picture</label>
+    <label for="upload" class="upload">Upload a profile picture</label>
     <input type="file" id="upload" accept="image/*" @change="uploadFile" />
   </form>
 </template>
@@ -73,78 +78,48 @@ const userStore = useAuthStore();
   align-items: center;
   justify-content: center;
 }
-</style>
-<!-- <script>
-const prop = defineProps(['path', 'size'])
-const { path, size } = toRefs(prop)
-
-const emit = defineEmits(['upload', 'update:path'])
-const uploading = ref(false)
-const src = ref('')
-const files = ref()
-
-const downloadImage = async () => {
-  try {
-    const { data, error } = await supabase.storage.from('avatars').download(path.value)
-    if (error) throw error
-    src.value = URL.createObjectURL(data)
-  } catch (error) {
-    console.error('Error downloading image: ', error.message)
-  }
-}
-
-const uploadAvatar = async (evt) => {
-  files.value = evt.target.files
-  try {
-    uploading.value = true
-    if (!files.value || files.value.length === 0) {
-      throw new Error('You must select an image to upload.')
-    }
-
-    const file = files.value[0]
-    const fileExt = file.name.split('.').pop()
-    const filePath = `${Math.random()}.${fileExt}`
-
-    const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
-
-    if (uploadError) throw uploadError
-    emit('update:path', filePath)
-    emit('upload')
-  } catch (error) {
-    alert(error.message)
-  } finally {
-    uploading.value = false
-  }
-}
-
-watch(path, () => {
-  if (path.value) downloadImage()
-})
-</script>
-
+</style> -->
 <template>
   <div>
-    <img
-      v-if="src"
-      :src="src"
-      alt="avatar"
-      class="avatar image"
-      :style="{ height: size + 'em', width: size + 'em' }"
-    />
-    <div v-else class="avatar no-image" :style="{ height: size + 'em', width: size + 'em' }"/>
-
-    <div :style="{ width: size + 'em' }">
-      <label class="button primary block" for="single">
-        {{ uploading ? 'Uploading ...' : 'Upload' }}
-      </label>
-      <input
-        style="visibility: hidden; position: absolute"
-        type="file"
-        id="single"
-        accept="image/*"
-        @change="uploadAvatar"
-        :disabled="uploading"
-      />
-    </div>
+    <input type="file" @change="handleFileChange" ref="fileInput" />
+    <button @click="uploadProfilePicture">Upload</button>
   </div>
-</template -->
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { supabase } from '@/lib/supabaseClient.js';
+import { v4 as uuidv4 } from 'uuid'; // Import uuidv4 from the 'uuid' library
+
+const fileInput = ref(null);
+
+const handleFileChange = () => {
+  // Handle file selection (if needed)
+};
+
+const uploadProfilePicture = async () => {
+  const file = fileInput.value.files[0];
+  if (!file) {
+    console.error('No file selected.');
+    return;
+  }
+
+  const filename = `${uuidv4()}-${file.name}`;
+  try {
+    const { data, error } = await supabase.storage.from('avatars').upload(filename, file);
+    if (error) {
+      console.error('Error uploading profile picture:', error.message);
+    } else {
+      console.log('Profile picture uploaded successfully:', data.Key);
+      // Update user's profile picture URL in your database
+      // Example: supabase.from('users').update({ profile_picture_url: data.Key }).eq('user_id', userId);
+    }
+  } catch (err) {
+    console.error('An error occurred during upload:', err);
+  }
+};
+</script>
+
+
+
+
