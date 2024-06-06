@@ -48,10 +48,10 @@
           console.log(user)
 
           if (error) {
-            console.error(error.message)
-            document.querySelector("h3").textContent = ("Wrong password or email")
+            console.log(error.message)
+            alert('Wrong password or email')
           } else {
-            document.querySelector("h3").textContent = ("Yay you logged in successfully!");
+            alert('Yay you logged in successfully!')
             this.$router.push('/home')
           }
         } catch (error) {
