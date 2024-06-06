@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
+import {ref} from 'vue'
 
-export const useUserStore = defineStore('user', {
-  state: () => ({
-    followedUsers: [], 
-  }),
-});
+export let userStore = defineStore('loginStore', () => {
+  const isUserLoggedIn = ref(false)
+
+
+  return {isUserLoggedIn}
+})

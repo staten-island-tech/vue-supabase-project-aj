@@ -75,7 +75,6 @@ const submit = async () => {
   }
 };
 
-onMounted(get);
 
 
 onMounted(() => {

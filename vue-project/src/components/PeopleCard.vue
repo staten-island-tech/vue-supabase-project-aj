@@ -1,25 +1,21 @@
 <template>
     <div class="card">
       <h2>{{ user.Username || 'no username' }}</h2>
-      <button class="button" @click="followed()">Follow</button>
+      <button class="button" @click="">Follow</button>
     </div>
   </template>
-  
-  <script setup>
 
-  const props = defineProps({
-    user: Object,
-  });
-  
-  function followed() {
-  const button = 
-  document.querySelector('button');
-  button.innerHTML = 'Following!';
-}
-  </script>
-  
-  <style scoped>
-  .card {
+
+<script setup>
+const props = defineProps({
+  user: Object,
+});
+
+
+</script>
+
+<style scoped>
+.card {
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -45,4 +41,4 @@
   .button:hover {
     background-color: #2d4373;
   }
-  </style>
+</style>
