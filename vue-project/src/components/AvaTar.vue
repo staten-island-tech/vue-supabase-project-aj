@@ -4,8 +4,6 @@ import { supabase } from '@/lib/supabaseClient.js'
 import { useAuthStore } from '@/stores/counter';
 const userAuth = useAuthStore();
 
-import { v4 as uuidv4 } from 'uuid';
-
 
     const uploadFile = async (event) => {
     const file = event.target.files[0];
