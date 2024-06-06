@@ -89,6 +89,7 @@ async function signOut() {
          <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
          <RouterLink class="navigate"to="/friends">Friends</RouterLink>
          <RouterLink class="navigate"to="/profile">Profile</RouterLink>
+         <RouterLink class="navigate" to="/home">Home</RouterLink>
    
       </nav>
   </header>
@@ -108,6 +109,13 @@ async function signOut() {
       <label for="website">Website</label>
       <input id="website" type="url" v-model="website" />
     </div>
+  </template>
+  <script>
+  import { RouterLink } from 'vue-router'
+  import { supabase } from '@/lib/supabaseClient.js'
+  import { useAuthStore } from '@/stores/counter'; 
+
+  const authStore = useAuthStore();
 
     <div>
       <input
@@ -133,6 +141,22 @@ async function signOut() {
     
   </template>
 
+        if (error) {
+          console.log(error.message)
+        } else {
+          authStore.$patch({
+            username: user.Username
+          })
+          console.log('Username updated successfully')
+          this.user.Username = ''
+        }
+      } catch (error) {
+        console.log('Unexpected error:', error)
+      }
+    }
+  }
+}
+  </script>
   <style >
   .body{
       align-items: center;

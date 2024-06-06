@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import {userStore} from '@/stores/store.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/signup',
@@ -27,7 +28,15 @@ const router = createRouter({
     },
     {
       path: "/home",
+      name: 'ya',
       component: () => import('../components/WelcomeView.vue'),
+      beforeEnter: (to, from, next) => {
+        if(userStore.isUserLoggedIn != true) {
+            next('/');
+        } else {
+            next();
+        }
+    }
     },
     {
       path: '/fyp',
@@ -36,6 +45,13 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../components/ForYou.vue'),
+      beforeEnter: (to, from, next) => {
+        if(userStore.isUserLoggedIn != true) {
+            next('/');
+        } else {
+            next();
+        }
+    }
     },
     {
       path: '/friends',
@@ -44,6 +60,13 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../components/FriEnds.vue'),
+      beforeEnter: (to, from, next) => {
+        if(userStore.isUserLoggedIn != true) {
+            next('/');
+        } else {
+            next();
+        }
+    }
     },
     {
       path: '/profile',
@@ -51,7 +74,14 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../components/AvaTar.vue'),
+      component: () => import('../components/ProFile.vue'),
+      beforeEnter: (to, from, next) => {
+        if(userStore.isUserLoggedIn != true) {
+            next('/');
+        } else {
+            next();
+        }
+    }
     },
     
   ]

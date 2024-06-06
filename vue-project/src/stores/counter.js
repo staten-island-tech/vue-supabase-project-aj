@@ -1,12 +1,10 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
-
+import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    profilePicture: null,
-    username: '',
-    user: null,
+    user: {
+      username: '',
+    }
   }),
   getters: {
 
@@ -14,10 +12,10 @@ export const useAuthStore = defineStore('auth', {
   
   actions: {
     setUser(newUser) {
-      this.user = newUser
+      this.user = newUser;
     },
     clearUser() {
-      this.user = null
+      this.user = { username: '' };
     }
   }
-})
+});

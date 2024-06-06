@@ -1,28 +1,58 @@
 <template>
   <br>
+  <div>
+    <header class="header">
+      <nav>
+        <RouterLink class="navigate" to="/fyp">FYP</RouterLink>
+        <RouterLink class="navigate" to="/friends">Friends</RouterLink>
+        <RouterLink class="navigate" to="/profile">Profile</RouterLink>
+      </nav>
       <div>
-          <header class="header">
-        <nav>
-  
-           <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
-           <RouterLink class="navigate"to="/friends">Friends</RouterLink>
-           <RouterLink class="navigate"to="/profile">Profile</RouterLink>
-     
-        </nav>
-        <div>
-  
-        </div>
+      </div>
     </header>
-      </div>
-      <div>
-          <h1 class="page"> Welcome! </h1>
-      </div>
-  </template>
-  
-  <script setup>
-  import { RouterLink } from 'vue-router'
+  </div>
+  <div>
+    <h1 class="page"> Welcome, {{ authStore.user.username }}!</h1>
+  </div>
+</template>
 
-  </script>
+<script>
+  import { useAuthStore } from '@/stores/counter'; 
+import { RouterLink } from 'vue-router';
+import { supabase } from '@/lib/supabaseClient.js';
+
+export default {
+  setup() {
+    const authStore = useAuthStore(); 
+
+    const submit = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        const { data: store, error } = await supabase
+          .from('profiles')
+          .select('Username')
+          .eq('id', user.id)
+          .single();
+
+        if (error) {
+          console.log(error.message);
+        } else {
+          authStore.setUser({ username: store.Username }); 
+        }
+      } catch (error) {
+        console.log('Unexpected error:', error);
+      }
+    };
+    submit(); 
+    return {
+      submit,
+      authStore
+    };
+  },
+};
+</script>
+
+ 
   
   <style >
   .body{
