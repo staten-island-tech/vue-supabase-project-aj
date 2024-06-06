@@ -4,8 +4,14 @@ import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: null
+    profilePicture: null,
+    username: '',
+    user: null,
   }),
+  getters: {
+
+  },
+  
   actions: {
     setUser(newUser) {
       this.user = newUser
