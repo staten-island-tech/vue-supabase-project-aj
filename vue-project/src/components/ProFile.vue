@@ -82,7 +82,7 @@ async function signOut() {
 
 <template>
         <div>
-      <br>
+      
         <header class="header">
       <nav>
   
