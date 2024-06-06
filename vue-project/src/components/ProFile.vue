@@ -13,15 +13,16 @@
 </header>
   </div>
   <div>
-  <h1 class="page">Profile</h1>
+  <h1 class="page">Change User</h1>
     </div>
+    <h3> User: </h3>
     <div class="header">
   <form @submit.prevent="Submit" class="form">
     <div class="form1">
       <label for="namee">Username</label>
       <input type="text" required v-model="user.Username" id="namee" class="form2">
     </div>
-    <button type="submit" class="button">Submit</button>
+    <button type="submit" class="button" >Submit</button>
   </form>
   </div>
 </template>
@@ -58,6 +59,8 @@ methods: {
         })
         console.log('Username updated successfully')
         this.user.Username = ''
+        document.querySelector("h3").textContent = (this.user.Username);
+        
       }
     } catch (error) {
       console.log('Unexpected error:', error)
