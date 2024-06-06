@@ -1,69 +1,70 @@
 <template>
-   <header>
+  <div>
+    <header>
       <nav>
-         <RouterLink class="" to="/"></RouterLink >
-
-         <RouterLink class="navigate"to="/signup">Sign Up</RouterLink>
-         <RouterLink class="navigate"to="/signin">Sign In</RouterLink>
-   
+        <RouterLink class="" to="/"></RouterLink>
+        <RouterLink class="navigate" to="/signup">Sign Up</RouterLink>
+        <RouterLink class="navigate" to="/signin">Sign In</RouterLink>
       </nav>
-  </header>
-  <RouterView />
+    </header>
+    <RouterView />
     <div class="header">
-      <form @submit.prevent="Submit" class="form">
+      <form @submit.prevent="submit" class="form">
         <div class="form1">
-          <label for="namee">Email</label>
-          <input type="text" required v-model="user.Email" id="namee" class="form2">
+          <label for="email">Email</label>
+          <input type="email" required v-model="user.Email" id="email" class="form2">
         </div>
         <div class="form1">
-          <label for="pass">Password</label>
-          <input type="password" required v-model="user.Password" id="pass" class="form2">
+          <label for="password">Password</label>
+          <input type="password" required v-model="user.Password" id="password" class="form2">
         </div>
         <button type="submit" class="button">Submit</button>
       </form>
-  <h3></h3>
     </div>
-  </template>
-  
-  <script>
-  import { supabase } from '@/lib/supabaseClient.js'
-  import { RouterLink, RouterView } from 'vue-router'
+  </div>
+</template>
 
-  export default {
-    data() {
-      return {
-        user: {
-          Email: '',
-          Password: ''
-        },
+<script>
+import { supabase } from '@/lib/supabaseClient.js'
+import { userStore } from '@/stores/store.js'
+
+export default {
+  data() {
+    return {
+      user: {
+        Email: '',
+        Password: ''
+      },
+    }
+  },
+  methods: {
+    async login() {
+      try {
+        const store = userStore
+        const { user, session, error } = await supabase.auth.signInWithPassword({
+          email: this.user.Email,
+          password: this.user.Password
+        })
+
+        if (error) {
+          console.error(error.message)
+          alert('Wrong password or email')
+        } else {
+          store.isUserLoggedIn = true
+          this.$router.push('/home')
+        }
+      } catch (error) {
+        console.error(error.message)
       }
     },
-    methods: {
-      async login() {
-        try {
-          const { user, session, error } = await supabase.auth.signInWithPassword({
-            email: this.user.Email,
-            password: this.user.Password
-          })
-          console.log(user)
-
-          if (error) {
-            console.log(error.message)
-            alert('Wrong password or email')
-          } else {
-            alert('Yay you logged in successfully!')
-            this.$router.push('/home')
-          }
-        } catch (error) {
-          console.log(error.message)
-        }
-      },
-      Submit() {
-        this.login()
-      }
+    submit() {
+      this.login()
     }
   }
-  </script>
+}
+</script>
+
+
   
   
   <style scoped>
