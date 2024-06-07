@@ -85,7 +85,6 @@ onMounted(() => {
 <style scoped>
 .page {
   text-align: center;
-  margin-top: 1rem;
 }
 
 .post-section {
@@ -124,6 +123,13 @@ onMounted(() => {
 
 .button:hover {
   background-color: #2d4373;
+}
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .comments-container {
