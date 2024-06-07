@@ -29,6 +29,10 @@ onMounted(async () => {
     buttonText.value = isFollowing.value ? 'Following' : 'Follow';
   }
 
+  // Get the number of people the current user is following
+  if (currentUser.value) {
+    await getFollowingCount(currentUser.value.ID);
+  }
 });
 
 
@@ -77,6 +81,21 @@ async function toggleFollow() {
     } else {
       await unfollowUser(props.user.ID);
     }
+  }
+}
+async function getFollowingCount(followerId) {
+  try {
+    const { count, error } = await supabase
+      .from('follows')
+      .select('following_id', { count: 'exact' })
+      .eq('follower_id', followerId);
+    if (error) {
+      throw error;
+    }
+    console.log('Following count:', count);
+    document.querySelector("h3").textContent = (count);
+  } catch (error) {
+    console.error('Error fetching following count:', error.message);
   }
 }
 </script>

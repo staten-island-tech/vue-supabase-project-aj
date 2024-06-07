@@ -17,6 +17,11 @@
       :user="user"
     />
   </div>
+<div class="poopy">
+  <h2>Your Following:</h2>
+  <h3> 
+  </h3>
+</div>
 </template>
 
 <script setup>
@@ -34,9 +39,6 @@ const get = async () => {
     users.value = ppl;
   }
 };
-
-
-
 onMounted(() => {
   get();
 });
@@ -52,6 +54,12 @@ onMounted(() => {
   padding: 1rem;
 }
 .poop{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.poopy{
   display: flex;
     flex-direction: column;
     align-items: center;
