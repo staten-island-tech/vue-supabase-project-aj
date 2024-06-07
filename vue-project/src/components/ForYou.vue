@@ -11,7 +11,7 @@
     </header>
   </div>
   <div>
-    <h1 class="page">FYP</h1>
+    <h1 class="pagee">FYP</h1>
     <div class="post-section">
       <form @submit.prevent="submit" class="form">
         <div class="form-group">
@@ -82,7 +82,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.page {
+.pagee {
   text-align: center;
 }
 

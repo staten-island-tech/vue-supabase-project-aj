@@ -11,6 +11,7 @@
         </nav>
       </header>
     </div>
+    <h1 class="pagee">Profile</h1>
     <div class="profile-content">
       <div class="profile-avatar">
         <img :src="imageUrl" alt="User Avatar" class="avatar" />
@@ -19,7 +20,6 @@
         <label for="upload" class="upload-label">Upload a profile picture</label>
         <input type="file" id="upload" accept="image/*" class="upload-input" @change="uploadFile" />
       </form>
-      <h1 class="page">Profile</h1>
       <div class="form-container">
         <form @submit.prevent="Submit" class="profile-form">
           <div class="form-group">
@@ -181,7 +181,7 @@ export default {
   display: none;
 }
 
-.page {
+.pagee {
   margin-top: 20px;
   font-size: 2rem;
   text-align: center;
