@@ -8,6 +8,7 @@
         <RouterLink class="navigate" to="/profile">Profile</RouterLink>
         <RouterLink class="navigate" to="/home">Home</RouterLink>
       </nav>
+      <AboutView/>
     </header>
     
   </div>
@@ -45,6 +46,7 @@ import { supabase } from '@/lib/supabaseClient.js';
 import { useAuthStore } from '@/stores/counter';
 import { ref, onMounted } from 'vue';
 import { useImageStore } from '@/stores/image.js';
+import AboutView from '@/views/AboutView.vue';
 
 const authStore = useAuthStore();
 const imageStore = useImageStore();
