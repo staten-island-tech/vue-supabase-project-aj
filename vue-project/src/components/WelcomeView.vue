@@ -7,6 +7,7 @@
         <RouterLink class="navigate" to="/friends">Friends</RouterLink>
         <RouterLink class="navigate" to="/profile">Profile</RouterLink>
       </nav>
+      <AboutView/>
       <div>
       </div>
     </header>
@@ -16,40 +17,34 @@
   </div>
 </template>
 
-<script>
-  import { useAuthStore } from '@/stores/counter'; 
+<script setup>
+import { useAuthStore } from '@/stores/counter'; 
 import { RouterLink } from 'vue-router';
 import { supabase } from '@/lib/supabaseClient.js';
+import AboutView from '@/views/AboutView.vue';
 
-export default {
-  setup() {
-    const authStore = useAuthStore(); 
+const authStore = useAuthStore();
 
-    const submit = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        const { data: store, error } = await supabase
-          .from('profiles')
-          .select('Username')
-          .eq('id', user.id)
-          .single();
+const submit = async () => {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    const { data: store, error } = await supabase
+      .from('profiles')
+      .select('Username')
+      .eq('id', user.id)
+      .single();
 
-        if (error) {
-          console.log(error.message);
-        } else {
-          authStore.setUser({ username: store.Username }); 
-        }
-      } catch (error) {
-        console.log('Unexpected error:', error);
-      }
-    };
-    submit(); 
-    return {
-      submit,
-      authStore
-    };
-  },
+    if (error) {
+      console.log(error.message);
+    } else {
+      authStore.setUser({ username: store.Username }); 
+    }
+  } catch (error) {
+    console.log('Unexpected error:', error);
+  }
 };
+
+submit(); 
 </script>
 
  

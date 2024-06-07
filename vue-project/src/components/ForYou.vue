@@ -7,6 +7,7 @@
         <RouterLink class="navigate" to="/friends">Friends</RouterLink>
         <RouterLink class="navigate" to="/profile">Profile</RouterLink>
       </nav>
+      <AboutView/>
     </header>
   </div>
   <div>
@@ -34,7 +35,7 @@
 import { ref, onMounted } from 'vue';
 import CommentCard from "@/components/CommentCard.vue";
 import { supabase } from '@/lib/supabaseClient.js';
-
+import AboutView from '@/views/AboutView.vue';
 
 const comments = ref([]);
 const user = ref({ Comment: '' });

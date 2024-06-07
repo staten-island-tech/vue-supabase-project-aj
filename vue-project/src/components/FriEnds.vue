@@ -7,6 +7,7 @@
         <RouterLink class="navigate" to="/friends">Friends</RouterLink>
         <RouterLink class="navigate" to="/profile">Profile</RouterLink>
       </nav>
+      <AboutView/>
     </header>
   </div>
   <h1 class="poop">Friends</h1>
@@ -27,6 +28,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import PeopleCard from '@/components/PeopleCard.vue';
+import AboutView from '@/views/AboutView.vue';
 import { supabase } from '@/lib/supabaseClient.js';
 
 const users = ref([]);

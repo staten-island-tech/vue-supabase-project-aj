@@ -9,6 +9,7 @@
 import { ref, onMounted, defineProps } from 'vue';
 import { supabase } from '@/lib/supabaseClient.js';
 
+
 const props = defineProps({
   user: Object,
 });
