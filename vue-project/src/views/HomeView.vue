@@ -1,3 +1,4 @@
+
 <template>
    <header>
       <nav>
@@ -32,7 +33,7 @@ header {
 .headerr{
   flex: auto;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 2rem;
   text-align: center;
   padding-top: 20rem;
 }
@@ -50,3 +51,4 @@ header {
   background-color: rgb(138, 198, 218); 
 }
 </style>
+

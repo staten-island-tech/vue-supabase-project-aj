@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import {userStore} from '@/stores/store.js'
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -44,7 +45,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../components/ForYou.vue'),
+      component: () => import('../components/PostForm.vue'),
       beforeEnter: (to, from, next) => {
         if(userStore.isUserLoggedIn != true) {
             next('/');
@@ -60,13 +61,13 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../components/FriEnds.vue'),
-      beforeEnter: (to, from, next) => {
+/*       beforeEnter: (to, from, next) => {
         if(userStore.isUserLoggedIn != true) {
             next('/');
         } else {
             next();
         }
-    }
+    } */
     },
     {
       path: '/profile',
@@ -75,13 +76,13 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../components/ProFile.vue'),
-      beforeEnter: (to, from, next) => {
+      /* beforeEnter: (to, from, next) => {
         if(userStore.isUserLoggedIn != true) {
             next('/');
         } else {
             next();
         }
-    }
+    } */
     },
     
   ]
