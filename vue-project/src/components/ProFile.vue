@@ -82,7 +82,7 @@ export default {
         this.imageUrl = publicUrlData.publicUrl
         this.imageUrlWithTimestamp = this.imageUrl + '?timestamp=' + new Date().getTime()
 
-        // Store the image URL in localStorage
+      
         localStorage.setItem('userAvatar', this.imageUrl)
       } catch (error) {
         console.error('Error uploading file:', error)
@@ -145,7 +145,7 @@ export default {
 }
 
 .profile-content {
-  margin-top: 40px; /* Adjust this value to move the content further down */
+  margin-top: 40px; 
   width: 100%;
   max-width: 600px;
   display: flex;
