@@ -18,7 +18,7 @@
   <div v-if="imageUrl" class="profile-avatar">
         <img :src="imageUrl" alt="User Avatar" @error="handleImageError(imageUrl)" class="avatar" />
       </div>
-      <div v-else>
+      <div class="img"v-else>
         No image found.
       </div>
       <div v-if="imageLoadError">
@@ -151,7 +151,12 @@ const Submit = async () => {
     margin-bottom: 20px;
     text-align: center;
   }
-  
+  .img{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .avatar {
     max-width: 200px;
     border-radius: 50%;
