@@ -21,15 +21,12 @@ onMounted(async () => {
   const { data: { user } } = await supabase.auth.getUser();
   let { data: ppl, error } = await supabase.from('profiles').select('*').eq('id', user.id).limit(1);
   currentUser.value = ppl[0];
-
-  // Check if the current user is already following the props.user
+  
   const followingState = localStorage.getItem(`following_${props.user.ID}`);
   if (followingState !== null) {
     isFollowing.value = JSON.parse(followingState);
     buttonText.value = isFollowing.value ? 'Following' : 'Follow';
   }
-
-  // Get the number of people the current user is following
   if (currentUser.value) {
     await getFollowingCount(currentUser.value.ID);
   }
@@ -46,9 +43,7 @@ async function followUser(userId) {
       return;
     }
     console.log('Successfully followed user');
-    // Update localStorage to persist follow state
     localStorage.setItem(`following_${userId}`, true);
-    // Optionally, update your UI to reflect the change in following status
   } else {
   }
 }
@@ -64,9 +59,7 @@ async function unfollowUser(userId) {
       throw error;
     }
     console.log('Successfully unfollowed user');
-    // Update localStorage to persist follow state
     localStorage.setItem(`following_${userId}`, false);
-    // Optionally, update your UI to reflect the change in following status
   } catch (error) {
     console.error('Error unfollowing user:', error.message);
   }
