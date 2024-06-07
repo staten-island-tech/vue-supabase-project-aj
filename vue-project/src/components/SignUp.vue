@@ -1,7 +1,7 @@
 <template>
  <header>
       <nav>
-         <RouterLink class="" to="/"></RouterLink >
+  
 
          <RouterLink class="navigate"to="/signup">Sign Up</RouterLink>
          <RouterLink class="navigate"to="/signin">Sign In</RouterLink>
@@ -21,7 +21,6 @@
 
       <button type="submit" class="button">Submit</button>
     </form>
-<h3></h3>
   </div>
 </template>
   
@@ -57,7 +56,7 @@ if (error) {
      }
      },
     )
-    document.querySelector("h3").textContent = ("You have signed up! Click login in to open app");
+    alert("You have signed up! Click login in to open app");
   }
 }}
   </script>

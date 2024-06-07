@@ -1,7 +1,7 @@
 <template>
    <header>
       <nav>
-         <RouterLink class="" to="/"></RouterLink >
+      
 
          <RouterLink class="navigate"to="/signup">Sign Up</RouterLink>
          <RouterLink class="navigate"to="/signin">Sign In</RouterLink>
