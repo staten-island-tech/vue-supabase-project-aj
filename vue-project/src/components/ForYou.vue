@@ -7,10 +7,11 @@
         <RouterLink class="navigate" to="/friends">Friends</RouterLink>
         <RouterLink class="navigate" to="/profile">Profile</RouterLink>
       </nav>
+      <AboutView/>
     </header>
   </div>
   <div>
-    <h1 class="page">FYP</h1>
+    <h1 class="pagee">FYP</h1>
     <div class="post-section">
       <form @submit.prevent="submit" class="form">
         <div class="form-group">
@@ -34,7 +35,7 @@
 import { ref, onMounted } from 'vue';
 import CommentCard from "@/components/CommentCard.vue";
 import { supabase } from '@/lib/supabaseClient.js';
-
+import AboutView from '@/views/AboutView.vue';
 
 const comments = ref([]);
 const user = ref({ Comment: '' });
@@ -42,8 +43,6 @@ const user = ref({ Comment: '' });
 const get = async () => {
   let { data: comment, error } = await supabase
     .from('posts').select('*')
-    // .select('*, profiles (Username)')
-    // .eq('posts.id', 'profiles.id'); 
   if (error) {
     console.log(error);
   } else {
@@ -83,9 +82,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.page {
+.pagee {
   text-align: center;
-  margin-top: 1rem;
 }
 
 .post-section {
@@ -124,6 +122,13 @@ onMounted(() => {
 
 .button:hover {
   background-color: #2d4373;
+}
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .comments-container {

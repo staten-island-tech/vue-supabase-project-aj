@@ -7,9 +7,10 @@
         <RouterLink class="navigate" to="/friends">Friends</RouterLink>
         <RouterLink class="navigate" to="/profile">Profile</RouterLink>
       </nav>
+      <AboutView/>
     </header>
   </div>
-  <h1>Friends</h1>
+  <h1 class="poop">Friends</h1>
   <div class="card-container">
     <PeopleCard
       v-for="user in users"
@@ -17,11 +18,17 @@
       :user="user"
     />
   </div>
+<div class="poopy">
+  <h2>Your Following:</h2>
+  <h3> 
+  </h3>
+</div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import PeopleCard from '@/components/PeopleCard.vue';
+import AboutView from '@/views/AboutView.vue';
 import { supabase } from '@/lib/supabaseClient.js';
 
 const users = ref([]);
@@ -34,7 +41,6 @@ const get = async () => {
     users.value = ppl;
   }
 };
-
 onMounted(() => {
   get();
 });
@@ -48,5 +54,17 @@ onMounted(() => {
   justify-content: center;
   gap: 1rem;
   padding: 1rem;
+}
+.poop{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.poopy{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 </style>
