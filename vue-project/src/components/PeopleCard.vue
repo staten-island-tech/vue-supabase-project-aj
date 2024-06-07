@@ -9,31 +9,39 @@
 import { ref, onMounted, defineProps } from 'vue';
 import { supabase } from '@/lib/supabaseClient.js';
 
-
 const props = defineProps({
   user: Object,
-  currentUser: String, // Change the type to String for the username
 });
+
+const currentUser = ref(null)
 
 const isFollowing = ref(false);
 const buttonText = ref('Follow');
 
+onMounted(async()=>{
+  const { data: { user } } = await supabase.auth.getUser()
+  let { data: ppl, error } = await supabase.from('profiles').select('*').eq( 'id', user.id ).limit(1);
+  currentUser.value = ppl[0]
+})
+
 async function followUser(username) {
-  if (props.currentUser) {
+  if (currentUser.value) {
     const { data, error } = await supabase
       .from('follows')
-      .insert([{ follower_id: props.currentUser, followed_username: username }]);
+      .insert([{ follower_id: currentUser.value.ID, following_id: props.user.ID }]);
+    console.log(error)
     // Handle the response...
   } else {
     console.error('Current user is not defined.');
   }
 }
+
 async function getFollowers(userId) {
   try {
     const { data, error } = await supabase
       .from('follows')
       .select('follower_id')
-      .eq('followed_id', userId);
+      .eq('following_id', userId);
     if (error) {
       throw error;
     }
@@ -43,13 +51,14 @@ async function getFollowers(userId) {
     console.error('Error fetching followers:', error.message);
   }
 }
+
 async function unfollowUser(currentUser, followedUserId) {
   try {
     const { error } = await supabase
       .from('follows')
       .delete()
       .eq('follower_id', currentUser.id)
-      .eq('followed_id', followedUserId);
+      .eq('following_id', followedUserId);
     if (error) {
       throw error;
     }
@@ -59,7 +68,6 @@ async function unfollowUser(currentUser, followedUserId) {
     console.error('Error unfollowing user:', error.message);
   }
 }
-
 
 async function toggleFollow() {
   if (props.user) {
