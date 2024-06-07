@@ -9,7 +9,7 @@
       </nav>
     </header>
   </div>
-  <h1>Friends</h1>
+  <h1 class="poop">Friends</h1>
   <div class="card-container">
     <PeopleCard
       v-for="user in users"
@@ -50,5 +50,11 @@ onMounted(() => {
   justify-content: center;
   gap: 1rem;
   padding: 1rem;
+}
+.poop{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 </style>

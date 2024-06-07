@@ -15,7 +15,7 @@
   <div>
   <h1 class="page">Change User</h1>
     </div>
-    <h3> User: </h3>
+    <h3 class="poop"></h3>
     <div class="header">
   <form @submit.prevent="Submit" class="form">
     <div class="form1">
@@ -59,7 +59,7 @@ methods: {
         })
         console.log('Username updated successfully')
         this.user.Username = ''
-        document.querySelector("h3").textContent = (this.user.Username);
+        document.querySelector("h3").textContent = ("Username updated successfully");
         
       }
     } catch (error) {
@@ -97,7 +97,15 @@ methods: {
 
 }
 .page{
-  align-items: center;
-  justify-content: center;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.poop{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 </style>

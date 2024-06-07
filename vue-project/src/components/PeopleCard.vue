@@ -14,55 +14,54 @@ const props = defineProps({
 });
 
 const currentUser = ref(null)
-
 const isFollowing = ref(false);
 const buttonText = ref('Follow');
 
-onMounted(async()=>{
-  const { data: { user } } = await supabase.auth.getUser()
-  let { data: ppl, error } = await supabase.from('profiles').select('*').eq( 'id', user.id ).limit(1);
-  currentUser.value = ppl[0]
-})
+onMounted(async () => {
+  const { data: { user } } = await supabase.auth.getUser();
+  let { data: ppl, error } = await supabase.from('profiles').select('*').eq('id', user.id).limit(1);
+  currentUser.value = ppl[0];
 
-async function followUser(username) {
+  // Check if the current user is already following the props.user
+  const followingState = localStorage.getItem(`following_${props.user.ID}`);
+  if (followingState !== null) {
+    isFollowing.value = JSON.parse(followingState);
+    buttonText.value = isFollowing.value ? 'Following' : 'Follow';
+  }
+
+});
+
+
+async function followUser(userId) {
   if (currentUser.value) {
     const { data, error } = await supabase
       .from('follows')
-      .insert([{ follower_id: currentUser.value.ID, following_id: props.user.ID }]);
-    console.log(error)
-    // Handle the response...
-  } else {
-    console.error('Current user is not defined.');
-  }
-}
-
-async function getFollowers(userId) {
-  try {
-    const { data, error } = await supabase
-      .from('follows')
-      .select('follower_id')
-      .eq('following_id', userId);
+      .insert([{ follower_id: currentUser.value.ID, following_id: userId }]);
     if (error) {
-      throw error;
+      console.error('Error following user:', error.message);
+      return;
     }
-    console.log('Followers:', data);
-    // Use follower data in your application
-  } catch (error) {
-    console.error('Error fetching followers:', error.message);
+    console.log('Successfully followed user');
+    // Update localStorage to persist follow state
+    localStorage.setItem(`following_${userId}`, true);
+    // Optionally, update your UI to reflect the change in following status
+  } else {
   }
 }
 
-async function unfollowUser(currentUser, followedUserId) {
+async function unfollowUser(userId) {
   try {
     const { error } = await supabase
       .from('follows')
       .delete()
-      .eq('follower_id', currentUser.id)
-      .eq('following_id', followedUserId);
+      .eq('follower_id', currentUser.value.ID)
+      .eq('following_id', userId);
     if (error) {
       throw error;
     }
     console.log('Successfully unfollowed user');
+    // Update localStorage to persist follow state
+    localStorage.setItem(`following_${userId}`, false);
     // Optionally, update your UI to reflect the change in following status
   } catch (error) {
     console.error('Error unfollowing user:', error.message);
@@ -74,16 +73,14 @@ async function toggleFollow() {
     isFollowing.value = !isFollowing.value;
     buttonText.value = isFollowing.value ? 'Following' : 'Follow';
     if (isFollowing.value) {
-      followUser(props.user.Username); // Pass the username here
+      await followUser(props.user.ID);
     } else {
-      // Handle unfollow logic if needed
+      await unfollowUser(props.user.ID);
     }
   }
 }
-
-
-
 </script>
+
 
 
 <style scoped>

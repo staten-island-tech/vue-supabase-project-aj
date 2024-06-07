@@ -27,7 +27,6 @@
     username.value = user.Username
   })
 
-
   </script>
   
   <style scoped>
