@@ -42,8 +42,6 @@ const user = ref({ Comment: '' });
 const get = async () => {
   let { data: comment, error } = await supabase
     .from('posts').select('*')
-    // .select('*, profiles (Username)')
-    // .eq('posts.id', 'profiles.id'); 
   if (error) {
     console.log(error);
   } else {
