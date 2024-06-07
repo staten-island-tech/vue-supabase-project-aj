@@ -2,7 +2,7 @@
     <div class="comment-card">
       <div class="comment-header">
         <img class="profile-pic" src="https://3.files.edl.io/aeb1/20/12/02/154937-46cc468f-b7f4-4bb3-945e-3265bdb605d4.jpg" alt="Profile Picture">
-        <p class="comment-id">Posted by {{ comment.id || 'no username'}}  :</p>
+        <p class="comment-id">Posted by {{ username }} </p>
       </div>
       <h2 class="comment-text">{{ comment.Comment }}</h2>
     </div>
