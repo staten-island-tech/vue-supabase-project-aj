@@ -20,6 +20,7 @@
         <input type="file" id="upload" accept="image/*" class="upload-input" @change="uploadFile" />
       </form>
       <h1 class="page">Profile</h1>
+      <h3></h3>
       <div class="form-container">
         <form @submit.prevent="Submit" class="profile-form">
           <div class="form-group">
@@ -119,6 +120,7 @@ export default {
           })
           console.log('Username updated successfully')
           this.user.Username = ''
+          document.querySelector("h3").textContent = ("Username updated successfully");
         }
       } catch (error) {
         console.log('Unexpected error:', error)

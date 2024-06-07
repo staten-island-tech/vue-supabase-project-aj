@@ -9,7 +9,7 @@
       </nav>
     </header>
   </div>
-  <h1>Friends</h1>
+  <h1 class="poop">Friends</h1>
   <div class="card-container">
     <PeopleCard
       v-for="user in users"
@@ -17,6 +17,11 @@
       :user="user"
     />
   </div>
+<div class="poopy">
+  <h2>Your Following:</h2>
+  <h3> 
+  </h3>
+</div>
 </template>
 
 <script setup>
@@ -34,9 +39,6 @@ const get = async () => {
     users.value = ppl;
   }
 };
-
-
-
 onMounted(() => {
   get();
 });
@@ -50,5 +52,17 @@ onMounted(() => {
   justify-content: center;
   gap: 1rem;
   padding: 1rem;
+}
+.poop{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.poopy{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 </style>
