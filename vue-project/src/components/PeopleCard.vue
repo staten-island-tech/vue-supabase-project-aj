@@ -30,7 +30,6 @@ async function followUser(username) {
       .from('follows')
       .insert([{ follower_id: currentUser.value.ID, following_id: props.user.ID }]);
     console.log(error)
-    // Handle the response...
   } else {
     console.error('Current user is not defined.');
   }
@@ -46,7 +45,6 @@ async function getFollowers(userId) {
       throw error;
     }
     console.log('Followers:', data);
-    // Use follower data in your application
   } catch (error) {
     console.error('Error fetching followers:', error.message);
   }
@@ -63,7 +61,6 @@ async function unfollowUser(currentUser, followedUserId) {
       throw error;
     }
     console.log('Successfully unfollowed user');
-    // Optionally, update your UI to reflect the change in following status
   } catch (error) {
     console.error('Error unfollowing user:', error.message);
   }
@@ -74,9 +71,8 @@ async function toggleFollow() {
     isFollowing.value = !isFollowing.value;
     buttonText.value = isFollowing.value ? 'Following' : 'Follow';
     if (isFollowing.value) {
-      followUser(props.user.Username); // Pass the username here
+      followUser(props.user.Username);
     } else {
-      // Handle unfollow logic if needed
     }
   }
 }

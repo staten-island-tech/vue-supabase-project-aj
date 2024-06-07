@@ -1,103 +1,231 @@
 <template>
-  <div>
-    <br>
+  <div class="profile-page">
+    <div class="nav-container">
+      <br>
       <header class="header">
-    <nav>
-
-       <RouterLink class="navigate"to="/fyp">FYP</RouterLink>
-       <RouterLink class="navigate"to="/friends">Friends</RouterLink>
-       <RouterLink class="navigate"to="/profile">Profile</RouterLink>
-       <RouterLink class="navigate" to="/home">Home</RouterLink>
- 
-    </nav>
-</header>
-  </div>
-  <div>
-  <h1 class="page">Change User</h1>
+        <nav>
+          <RouterLink class="navigate" to="/fyp">FYP</RouterLink>
+          <RouterLink class="navigate" to="/friends">Friends</RouterLink>
+          <RouterLink class="navigate" to="/profile">Profile</RouterLink>
+          <RouterLink class="navigate" to="/home">Home</RouterLink>
+        </nav>
+      </header>
     </div>
-    <h3> User: </h3>
-    <div class="header">
-  <form @submit.prevent="Submit" class="form">
-    <div class="form1">
-      <label for="namee">Username</label>
-      <input type="text" required v-model="user.Username" id="namee" class="form2">
+    <div class="profile-content">
+      <div class="profile-avatar">
+        <img :src="imageUrl" alt="User Avatar" class="avatar" />
+      </div>
+      <form class="upload-form">
+        <label for="upload" class="upload-label">Upload a profile picture</label>
+        <input type="file" id="upload" accept="image/*" class="upload-input" @change="uploadFile" />
+      </form>
+      <h1 class="page">Profile</h1>
+      <div class="form-container">
+        <form @submit.prevent="Submit" class="profile-form">
+          <div class="form-group">
+            <label for="namee" class="form-label">Username</label>
+            <input type="text" required v-model="user.Username" id="namee" class="form-input">
+          </div>
+          <button type="submit" class="submit-button">Submit</button>
+        </form>
+      </div>
     </div>
-    <button type="submit" class="button" >Submit</button>
-  </form>
   </div>
 </template>
+
 <script>
 import { RouterLink } from 'vue-router'
 import { supabase } from '@/lib/supabaseClient.js'
-import { useAuthStore } from '@/stores/counter'; 
+import { useAuthStore } from '@/stores/counter'
+import { ref, onMounted } from 'vue'
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
 export default {
-data() {
-  return {
-    user: {
-      Username: ''
+  data() {
+    return {
+      imageUrl: ref(''),
+      imageUrlWithTimestamp: ref(''),
+      user: ref({
+        Username: ''
+      })
     }
-  };
-},
-methods: {
-  async Submit() {
-    try {
-      const { data: { user } } = await supabase.auth.getUser()
- 
-      let { error } = await supabase
-        .from('profiles')
-        .update({ Username: this.user.Username })
-        .eq('id', user.id)
-
+  },
+  methods: {
+    async getUser() {
+      const { data, error } = await supabase.auth.getUser()
       if (error) {
-        console.log(error.message)
-      } else {
-        authStore.$patch({
-          username: user.Username
-        })
-        console.log('Username updated successfully')
-        this.user.Username = ''
-        document.querySelector("h3").textContent = (this.user.Username);
-        
+        console.error('Error getting user:', error)
+        return null
       }
-    } catch (error) {
-      console.log('Unexpected error:', error)
+      return data.user
+    },
+    async uploadFile(event) {
+      const file = event.target.files[0]
+      if (!file) return
+
+      const user = await this.getUser()
+      if (!user) return
+
+      try {
+        await supabase.storage.from('avatars').remove([user.id])
+        const { data, error } = await supabase.storage
+          .from('avatars')
+          .upload(user.id, file, { contentType: file.type })
+
+        if (error) throw error
+        console.log('File uploaded successfully:', data)
+
+        const { data: publicUrlData, error: publicUrlError } = supabase.storage.from('avatars').getPublicUrl(user.id)
+        if (publicUrlError) throw publicUrlError
+
+        this.imageUrl = publicUrlData.publicUrl
+        this.imageUrlWithTimestamp = this.imageUrl + '?timestamp=' + new Date().getTime()
+
+        // Store the image URL in localStorage
+        localStorage.setItem('userAvatar', this.imageUrl)
+      } catch (error) {
+        console.error('Error uploading file:', error)
+      }
+    },
+    async fetchProfileImage() {
+      const user = await this.getUser()
+      if (!user) return
+
+      try {
+        const { data: publicUrlData, error: publicUrlError } = supabase.storage.from('avatars').getPublicUrl(user.id)
+        if (publicUrlError) throw publicUrlError
+
+        this.imageUrl = publicUrlData.publicUrl
+        this.imageUrlWithTimestamp = this.imageUrl + '?timestamp=' + new Date().getTime()
+      } catch (error) {
+        console.error('Error fetching profile image:', error)
+      }
+    },
+    async Submit() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
+
+        let { error } = await supabase
+          .from('profiles')
+          .update({ Username: this.user.Username })
+          .eq('id', user.id)
+
+        if (error) {
+          console.log(error.message)
+        } else {
+          authStore.$patch({
+            username: user.Username
+          })
+          console.log('Username updated successfully')
+          this.user.Username = ''
+        }
+      } catch (error) {
+        console.log('Unexpected error:', error)
+      }
     }
+  },
+  async mounted() {
+    const storedImageUrl = localStorage.getItem('userAvatar')
+    if (storedImageUrl) {
+      this.imageUrl = storedImageUrl
+    }
+
+    await this.fetchProfileImage()
   }
-}
 }
 </script>
-<style >
-.body{
-    align-items: center;
-}
-.navigate{
-    padding: 10px 20px;
-    margin-right: 10px; 
-    background-color:rgb(57, 188, 231);
-    color: white; 
-    border-radius: 5px; 
-    cursor: pointer; 
-    text-decoration: none; 
-    transition: background-color 0.3s; 
-    align-items: center;
-    justify-content: center;
-    margin: 50px;
-  }
-  .navigate:hover {
-    background-color: rgb(138, 198, 218); 
-  }
-  .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 
-}
-.page{
+<style scoped>
+.profile-page {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding: 20px;
+}
+
+.profile-content {
+  margin-top: 40px; /* Adjust this value to move the content further down */
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-avatar {
+  margin-bottom: 20px;
+}
+
+.avatar {
+  max-width: 200px;
+  border-radius: 50%;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-label {
+  cursor: pointer;
+  background-color: rgb(57, 188, 231);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.upload-input {
+  display: none;
+}
+
+.page {
+  margin-top: 20px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: rgb(57, 188, 231);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: rgb(138, 198, 218);
 }
 </style>
