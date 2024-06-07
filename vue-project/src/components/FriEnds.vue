@@ -32,7 +32,6 @@ const get = async () => {
     console.log(error);
   } else {
     users.value = ppl;
-    followed();
   }
 };
 
