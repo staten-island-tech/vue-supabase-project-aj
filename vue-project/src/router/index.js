@@ -44,7 +44,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../components/RippingHair.vue'),
+      component: () => import('../components/ForYou.vue'),
       beforeEnter: (to, from, next) => {
         if(userStore.isUserLoggedIn != true) {
             next('/');
@@ -74,7 +74,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../components/ImaGine.vue'),
+      component: () => import('../components/ProFile.vue'),
       /* beforeEnter: (to, from, next) => {
         if(userStore.isUserLoggedIn != true) {
             next('/');
