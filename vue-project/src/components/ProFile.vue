@@ -1,6 +1,6 @@
  <template>
   <div>
-  <img :src="imageUrlWithTimestamp" alt="User Avatar" />
+  <img :src="imageUrl" alt="User Avatar" />
 </div>
       <form>
       <label for="upload" class="upload">Upload a profile picture</label>
@@ -32,7 +32,7 @@
   </form>
   </div>
 </template>
- <script>
+<script>
   import { RouterLink } from 'vue-router'
   import { supabase } from '@/lib/supabaseClient.js'
   import { useAuthStore } from '@/stores/counter'; 
@@ -41,10 +41,13 @@
   const authStore = useAuthStore();
 
   export default {
-  data() {
-    const imageUrl = ref('');
+    data() {
+      const imageUrl = ref('');
       const imageUrlWithTimestamp = ref('');
-  
+      const user = ref({
+        Username: ''
+      });
+
       const getUser = async () => {
         const { data, error } = await supabase.auth.getUser();
         if (error) {
@@ -53,71 +56,79 @@
         }
         return data.user;
       };
-  
+
       const uploadFile = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
-  
+
         const user = await getUser();
         if (!user) return;
-  
+
         try {
           await supabase.storage.from('avatars').remove([user.id]);
           const { data, error } = await supabase.storage
             .from('avatars')
             .upload(user.id, file, { contentType: file.type });
-  
+
           if (error) throw error;
           console.log('File uploaded successfully:', data);
-  
+
           const { data: publicUrlData, error: publicUrlError } = supabase.storage.from('avatars').getPublicUrl(user.id);
           if (publicUrlError) throw publicUrlError;
-  
+
           imageUrl.value = publicUrlData.publicUrl;
           imageUrlWithTimestamp.value = imageUrl.value + '?timestamp=' + new Date().getTime();
+
+          // Store the image URL in localStorage
+          localStorage.setItem('userAvatar', imageUrl.value);
         } catch (error) {
           console.error('Error uploading file:', error);
         }
       };
-  
+
       onMounted(async () => {
+        const storedImageUrl = localStorage.getItem('userAvatar');
+        if (storedImageUrl) {
+          imageUrl.value = storedImageUrl;
+        }
+
         await getUser();
       });
-    return {
-      imageUrl,
+
+      return {
+        imageUrl,
         imageUrlWithTimestamp,
         uploadFile,
-      user: {
-        Username: ''
-      }
-    };
-  },
-  methods: {
-    async Submit() {
-      try {
-        const { data: { user } } = await supabase.auth.getUser()
+        user
+      };
+    },
+    methods: {
+      async Submit() {
+        try {
+          const { data: { user } } = await supabase.auth.getUser()
 
-        let { error } = await supabase
-          .from('profiles')
-          .update({ Username: this.user.Username })
-          .eq('id', user.id)
+          let { error } = await supabase
+            .from('profiles')
+            .update({ Username: this.user.Username })
+            .eq('id', user.id)
 
-        if (error) {
-          console.log(error.message)
-        } else {
-          authStore.$patch({
-            username: user.Username
-          })
-          console.log('Username updated successfully')
-          this.user.Username = ''
+          if (error) {
+            console.log(error.message)
+          } else {
+            authStore.$patch({
+              username: user.Username
+            })
+            console.log('Username updated successfully')
+            this.user.Username = ''
+          }
+        } catch (error) {
+          console.log('Unexpected error:', error)
         }
-      } catch (error) {
-        console.log('Unexpected error:', error)
       }
     }
   }
-}
-  </script>
+</script>
+
   <style >
   .body{
       align-items: center;
